@@ -17,8 +17,10 @@ jobs:
       - run: npm run build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}      
-      - uses: softprops/action-gh-release@v1
+      - name: Upload para o archive.org
+        uses: palewire/internet-archive-upload@v1
         with:
-          files: 'dist/*.deb'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          access-key: ${{ secrets.IA_ACCESS_KEY }}
+          secret-key: ${{ secrets.IA_SECRET_KEY }}
+          identifier: ubuntuderivativesstudio
+          files: uds.deb
