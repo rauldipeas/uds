@@ -1,12 +1,12 @@
 #!/bin/bash
 set -e
-gpu_info=$(lspci|grep -E "VGA|3D")
-if printf "$gpu_info"|grep -q NVIDIA>/dev/null;then
+gpu_info="$(lspci | grep -E "VGA|3D")"
+if printf "%s" "$gpu_info" | grep -q NVIDIA >/dev/null; then
 	sudo dpkg --add-architecture i386
 	sudo add-apt-repository -y ppa:graphics-drivers/ppa
 	sudo apt update
 	sudo apt install -y --reinstall libvulkan1 libvulkan1:i386
-elif printf "$gpu_info"|grep -qE "AMD|Intel">/dev/null;then
+elif printf "%s" "$gpu_info" | grep -qE "AMD|Intel" >/dev/null; then
 	sudo dpkg --add-architecture i386
 	sudo add-apt-repository -y ppa:kisak/kisak-mesa
 	sudo apt upgrade -y

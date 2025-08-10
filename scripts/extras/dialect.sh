@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
+# shellcheck disable=SC2034
 INSTNAME='dialect'
+# shellcheck disable=SC1090
 source <(curl -s https://rauldipeas.com.br/uds/functions.sh)
 install_deb
 dconf reset -f /app/drey/Dialect/

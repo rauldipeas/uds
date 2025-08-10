@@ -12,8 +12,8 @@ function createWindow() {
   });
 
   win.setMenu(null);
-  win.loadURL('https://rauldipeas.com.br/uds/src/index.html'); // substitua pela URL desejada
-  // win.loadFile('site/uds/src/index.html');
+  win.loadURL('https://rauldipeas.com.br/uds/src/index.html');
+  // win.loadFile('src/index.html');
 
   win.webContents.on('before-input-event', (event, input) => {
     if (input.control && input.key.toLowerCase() === 'q') {
@@ -31,10 +31,10 @@ ipcMain.handle('executar-scripts', async (_, scripts) => {
   let comando = "";
   scripts.forEach(script => {
     const url = `https://rauldipeas.com.br/uds/scripts/${script}`;
-    comando += `echo 'Executando ${script}...'; bash <(curl -s '${url}'); echo; read -n1 -s -r -p 'Pressione qualquer tecla para continuar...'; clear; `;
+    comando += `printf 'Executando ${script}...'; bash <(curl -s '${url}'); prinf; read -n1 -s -r -p 'Pressione qualquer tecla para continuar...'; clear; `;
   });
 
-  comando += `echo 'Todos os scripts foram executados.'; read -n1 -s -r -p 'Pressione qualquer tecla para fechar...';`;
+  comando += `printf 'Todos os scripts foram executados.'; read -n1 -s -r -p 'Pressione qualquer tecla para fechar...';`;
 
   const terminal = `command -v gnome-terminal &>/dev/null && gnome-terminal -- bash -c "${comando}" || xterm -T 'Instalação sequencial' -fa 'Ubuntu Mono' -fs 11 -bg '#300a25' -fg white -e bash -c "${comando}"`;
 

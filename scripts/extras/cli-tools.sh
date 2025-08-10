@@ -3,7 +3,7 @@ set -e
 set_bashrc() {
   mkdir -p "$HOME"/.bashrc.d
   cp /etc/skel/.bashrc "$HOME"/.bashrc.d/default-bashrc.sh
-  cat <<EOF |tee "$HOME"/.bashrc>/dev/null
+  cat <<EOF | tee "$HOME"/.bashrc >/dev/null
 if [ -d "\$HOME/.bashrc.d" ]; then
   for f in "\$HOME"/.bashrc.d/*.sh; do
     [ -r "\$f" ] && . "\$f"
@@ -21,12 +21,12 @@ rm -fr /tmp/ble.sh
 git clone -q --recursive --depth 1 --shallow-submodules https://github.com/akinomyoga/ble.sh
 make -C ble.sh install PREFIX="$HOME"/.local
 set_bashrc
-cat <<EOF |tee "$HOME"/.bashrc.d/ble.sh>/dev/null
+cat <<EOF | tee "$HOME"/.bashrc.d/ble.sh >/dev/null
 #source "$HOME"/.local/share/blesh/ble.sh --noattach
 #[[ ! \${BLE_VERSION-} ]] || ble-attach
 source -- "$HOME"/.local/share/blesh/ble.sh
 EOF
-cat <<EOF |tee "$HOME"/.blerc>/dev/null
+cat <<EOF | tee "$HOME"/.blerc >/dev/null
 # desabilita syntax highlighting
 bleopt highlight_syntax=
 # desabilita highlighting baseado em filenames
@@ -64,7 +64,7 @@ sudo apt install -y --reinstall fdupes
 ## fzf
 sudo apt install -y --reinstall fzf #Ctrl+R
 set_bashrc
-cat <<EOF |tee "$HOME"/.bashrc.d/fzf-history.sh>/dev/null
+cat <<EOF | tee "$HOME"/.bashrc.d/fzf-history.sh >/dev/null
 export HISTTIMEFORMAT='%F %T '
 __fzf_history() {
   selected=\$(history|tac|awk '!seen[\$0]++'|sed -E "s/^([ ]*[0-9]+[ ]+)([0-9-]+ [0-9:]+)/\1\x1b[38;5;43m\2\x1b[0m /"|fzf --ansi --expect=tab,enter \
@@ -92,7 +92,7 @@ sudo apt install -y --reinstall fonts-powerline liquidprompt
 cp /usr/share/liquidprompt/liquidpromptrc-dist "$HOME"/.config/liquidpromptrc
 sed -i 's/debian.theme/powerline.theme/' "$HOME"/.config/liquidpromptrc
 set_bashrc
-cat <<EOF |tee "$HOME"/.bashrc.d/liquidprompt.sh>/dev/null
+cat <<EOF | tee "$HOME"/.bashrc.d/liquidprompt.sh >/dev/null
 printf \$- | grep -q i 2>/dev/null && . /usr/share/liquidprompt/liquidprompt
 lp_theme powerline
 EOF
@@ -105,7 +105,7 @@ pacstall -IP nerd-fonts:ttf-ubuntu-nerd nerd-fonts:ttf-ubuntu-mono-nerd
 ## Micro
 sudo apt install -y --reinstall micro
 mkdir -p "$HOME"/.config/micro
-cat <<EOF |tee "$HOME"/.config/micro/settings.json>/dev/null
+cat <<EOF | tee "$HOME"/.config/micro/settings.json >/dev/null
 {
     "eofnewline": false
 }

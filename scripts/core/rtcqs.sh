@@ -1,7 +1,9 @@
 #!/bin/bash
 set -e
+# shellcheck disable=SC2034
 DEPS="pipx\
     python3-tk"
+# shellcheck disable=SC1090
 source <(curl -s https://rauldipeas.com.br/uds/functions.sh)
 install_deb
 pipx install --force rtcqs

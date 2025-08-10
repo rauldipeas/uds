@@ -2,25 +2,25 @@
 set -e
 gei() {
   ID="$1"
-  SHELL_VER=$(gnome-shell --version | awk '{print $3}')
-  EXT_INFO=$(curl -s "https://extensions.gnome.org/extension-info/?pk=$ID&shell_version=$SHELL_VER")
-  UUID=$(echo "$EXT_INFO" | jq -r .uuid)
-  DOWNLOAD_URL=$(echo "$EXT_INFO" | jq -r .download_url)
-  
+  SHELL_VER="$(gnome-shell --version | awk '{print $3}')"
+  EXT_INFO="$(curl -s "https://extensions.gnome.org/extension-info/?pk=$ID&shell_version=$SHELL_VER")"
+  UUID="$(printf "%s" "$EXT_INFO" | jq -r .uuid)"
+  DOWNLOAD_URL="$(printf "%s" "$EXT_INFO" | jq -r .download_url)"
+
   if [ -z "$UUID" ] || [ "$DOWNLOAD_URL" = "null" ]; then
-    echo "Falha ao obter UUID ou URL. Verifique se a extensão suporta GNOME $SHELL_VER."
+    printf "%s" "Falha ao obter UUID ou URL. Verifique se a extensão suporta GNOME $SHELL_VER".
     return 1
   fi
 
   FULL_URL="https://extensions.gnome.org$DOWNLOAD_URL"
   TMPFILE=$(mktemp)
   if ! wget -q --show-progress -O "$TMPFILE" "$FULL_URL"; then
-    echo "Falha no download."
+    printf "Falha no download."
     rm -f "$TMPFILE"
     return 1
   fi
 
-  gnome-extensions install -f "$TMPFILE" && echo "Extensão instalada: $UUID"
+  gnome-extensions install -f "$TMPFILE" && printf "%s" "Extensão instalada: $UUID"
   rm -f "$TMPFILE"
 }
 
@@ -28,7 +28,7 @@ gei() {
 mkdir -p /tmp/bibata
 cd /tmp/bibata
 rm -f /tmp/bibata/*.xz
-wget -q --show-progress "$(curl -s https://api.github.com/repos/ful1e5/Bibata_Cursor/releases|grep browser_download_url|grep download|grep  Modern-Ice.tar.xz|head -n1|cut -d '"' -f4)"
+wget -q --show-progress "$(curl -s https://api.github.com/repos/ful1e5/Bibata_Cursor/releases | grep browser_download_url | grep download | grep Modern-Ice.tar.xz | head -n1 | cut -d '"' -f4)"
 tar -xf Bibata*.tar.xz
 rm Bibata*.tar.xz
 sudo mv Bibata* /usr/share/icons/
@@ -37,13 +37,11 @@ sudo update-alternatives --install /usr/share/icons/default/index.theme x-cursor
 gsettings set org.gnome.desktop.interface cursor-theme Bibata-Modern-Ice
 
 ## GNOME shell
-sudo apt install -y --reinstall\
-    gnome-shell-extension-alphabetical-grid\
-    gnome-shell-extension- gsconnect
+sudo apt install -y --reinstall gnome-shell-extension-alphabetical-grid gnome-shell-extension- gsconnect
 #    gnome-shell-extension-prefs
 
 mkdir -p "$HOME"/.local/share/applications
-cat <<EOF |tee "$HOME"/.local/share/applications/gnome-extensions-web.desktop
+cat <<EOF | tee "$HOME"/.local/share/applications/gnome-extensions-web.desktop
 [Desktop Entry]
 Type=Application
 Name=Extensions
@@ -81,7 +79,7 @@ dconf write /org/gnome/shell/extensions/app-hider/hidden-apps "[\
     'winetricks.desktop'\
 ]"
 
-if [ "$(gsettings get org.gnome.desktop.interface icon-theme)" == "'Papirus-Dark'" ];then
+if [ "$(gsettings get org.gnome.desktop.interface icon-theme)" == "'Papirus-Dark'" ]; then
   dconf write /org/gnome/shell/extensions/appindicator/custom-icons "[\
     ('2wydifuftb', 'gtk-dialog-authentication-panel', ''),\
     ('Cable', 'ladi-starting', ''),\
@@ -94,7 +92,7 @@ if [ "$(gsettings get org.gnome.desktop.interface icon-theme)" == "'Papirus-Dark
     ('veracrypt', 'veracrypt-panel', ''),\
     ('vlc', 'vlc-panel', '')\
   ]"
-  else
+else
   dconf write /org/gnome/shell/extensions/appindicator/custom-icons "[\
     ('Cable', 'audio-card-symbolic', ''),\
     ('Diodon', 'edit-paste-symbolic', ''),\
@@ -156,7 +154,7 @@ dconf write /org/gnome/shell/extensions/azwallpaper/slideshow-slide-duration "(0
 #}"
 
 dconf reset -f /org/gnome/shell/extensions/editdesktopfiles/
-dconf write /org/gnome/shell/extensions/editdesktopfiles/custom-edit-command  "'x-terminal-emulator -e micro %U'"
+dconf write /org/gnome/shell/extensions/editdesktopfiles/custom-edit-command "'x-terminal-emulator -e micro %U'"
 dconf write /org/gnome/shell/extensions/editdesktopfiles/use-custom-edit-command true
 
 dconf reset -f /org/gnome/shell/extensions/Logo-menu/
@@ -187,11 +185,10 @@ dconf write /org/gnome/shell/extensions/rounded-window-corners-reborn/global-rou
     'enabled': <true>\
 }"
 
-
 dconf write /org/gnome/shell/extensions/status-area-horizontal-spacing/hpadding 3
 
 dconf write /org/gnome/shell/extensions/syncthing-toggle/port 8080
-if [ "$(gsettings get org.gnome.desktop.interface icon-theme)" == "'Papirus-Dark'" ];then
+if [ "$(gsettings get org.gnome.desktop.interface icon-theme)" == "'Papirus-Dark'" ]; then
   dconf write /org/gnome/shell/extensions/syncthing-toggle/icon-name "'si-syncthing-idle'"
 fi
 
@@ -256,14 +253,14 @@ gei 8087 # window-centering
 gei 6343 # window-gestures
 gei 6310 # window-title-is-back
 
-cat <<EOF |tee "$HOME"/.local/bin/enable-extensions>/dev/null
+cat <<EOF | tee "$HOME"/.local/bin/enable-extensions >/dev/null
 #!/bin/bash
 for ext in \$(gnome-extensions list); do
   gnome-extensions enable "\$ext"
 done
 rm "\$HOME"/.config/autostart/enable-extensions.desktop "\$HOME"/.local/bin/enable-extensions
 EOF
-cat <<EOF |tee "$HOME"/.config/autostart/enable-extensions.desktop>/dev/null
+cat <<EOF | tee "$HOME"/.config/autostart/enable-extensions.desktop >/dev/null
 [Desktop Entry]
 Type=Application
 Name=Ativar extensões do GNOME

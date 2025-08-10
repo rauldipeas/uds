@@ -1,10 +1,14 @@
 #!/bin/bash
 set -e
+# shellcheck disable=SC2034
 DEPS="libcanberra-gtk-module\
 	gtk2-engines-murrine\
 	gtk2-engines-pixbuf"
+# shellcheck disable=SC2034
 PPA='ubuntuhandbook1/gimp-3'
+# shellcheck disable=SC2034
 INSTNAME='gimp'
+# shellcheck disable=SC1090
 source <(curl -s https://rauldipeas.com.br/uds/functions.sh)
 add_ppa
 install_deb

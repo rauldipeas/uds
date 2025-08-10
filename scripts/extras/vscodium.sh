@@ -1,12 +1,12 @@
 #!/bin/bash
 set -e
-curl -s https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg|sudo gpg --dearmor --yes -o /usr/share/keyrings/vscodium-archive-keyring.gpg
-echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/vscodium-archive-keyring.gpg] https://download.vscodium.com/debs vscodium main'|sudo tee /etc/apt/sources.list.d/vscodium.list>/dev/null
+curl -s https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg | sudo gpg --dearmor --yes -o /usr/share/keyrings/vscodium-archive-keyring.gpg
+printf 'deb [arch=amd64 signed-by=/usr/share/keyrings/vscodium-archive-keyring.gpg] https://download.vscodium.com/debs vscodium main' | sudo tee /etc/apt/sources.list.d/vscodium.list >/dev/null
 sudo apt update
-sudo apt install -y --reinstall codium npm
+sudo apt install -y --reinstall codium npm shfmt
 sudo npm install -f pnpm
 mkdir -p "$HOME"/.config/VSCodium/User
-if [ $USER == rauldipeas ];then
+if [ "$USER" == rauldipeas ]; then
 	cd /tmp
 	rm -fr /tmp/yaru-vscode
 	git clone -q https://github.com/AdsonCicilioti/yaru-vscode
@@ -22,7 +22,7 @@ if [ $USER == rauldipeas ];then
 	codium --install-extension pkief.material-icon-theme --force
 	codium --install-extension redhat.vscode-yaml --force
 	codium --install-extension zardoy.npm-rapid-ready --force
-    cat <<EOF |tee "$HOME"/.config/VSCodium/User/settings.json>/dev/null
+	cat <<EOF | tee "$HOME"/.config/VSCodium/User/settings.json >/dev/null
 {
 	"editor.fontFamily": "'Ubuntu Mono', 'monospace', monospace",
 	"editor.occurrencesHighlight": "off",
@@ -44,8 +44,8 @@ if [ $USER == rauldipeas ];then
 	"workbench.settings.enableNaturalLanguageSearch": false,
 }
 EOF
-    else
-    cat <<EOF |tee "$HOME"/.config/VSCodium/User/settings.json>/dev/null
+else
+	cat <<EOF | tee "$HOME"/.config/VSCodium/User/settings.json >/dev/null
 {
 	"editor.fontFamily": "'Ubuntu Mono', 'monospace', monospace",
   	"telemetry.enableTelemetry": false,

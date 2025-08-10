@@ -4,31 +4,31 @@ set -e
 sudo bash -c "$(curl -s https://github.com/ivan-hc/AM/raw/main/INSTALL)"
 
 ## Pacstall
-yes|sudo bash -c "$(curl -s https://pacstall.dev/q/install)"
+yes | sudo bash -c "$(curl -s https://pacstall.dev/q/install)"
 
 ## Topgrade
 cd /tmp
 rm -f /tmp/*.deb
-wget -q --show-progress "$(curl -s https://api.github.com/repos/topgrade-rs/topgrade/releases|grep browser_download_url|grep deb|head -n1|cut -d '"' -f4)"
+wget -q --show-progress "$(curl -s https://api.github.com/repos/topgrade-rs/topgrade/releases | grep browser_download_url | grep deb | head -n1 | cut -d '"' -f4)"
 sudo apt install -y --reinstall ./topgrade*.deb
 mkdir -p "$HOME"/.local/share/applications
-if command -v gnome-terminal>/dev/null;then
-	cat <<EOF |tee "$HOME"/.local/share/applications/topgrade.desktop>/dev/null
+if command -v gnome-terminal >/dev/null; then
+  cat <<EOF | tee "$HOME"/.local/share/applications/topgrade.desktop >/dev/null
 [Desktop Entry]
 Type=Application
 Name=Topgrade
-Exec=gnome-terminal --title="Topgrade" --geometry=80x24 -- bash -c "topgrade; echo 'Pressione qualquer tecla para fechar...'; read -n1"
+Exec=gnome-terminal --title="Topgrade" --geometry=80x24 -- bash -c "topgrade; printf 'Pressione qualquer tecla para fechar...'; read -n1"
 Icon=aptdaemon-update-cache
 Terminal=false
 Categories=System;Utility;
 StartupNotify=true
 EOF
-	else
-	cat <<EOF |tee "$HOME"/.local/share/applications/topgrade.desktop>/dev/null
+else
+  cat <<EOF | tee "$HOME"/.local/share/applications/topgrade.desktop >/dev/null
 [Desktop Entry]
 Type=Application
 Name=Topgrade
-Exec=xterm -T 'Topgrade' -fa 'Ubuntu Mono' -fs 11 -bg "#300a25" -fg white -e bash -c "topgrade; echo 'Pressione qualquer tecla para fechar...'; read -n1"
+Exec=xterm -T 'Topgrade' -fa 'Ubuntu Mono' -fs 11 -bg "#300a25" -fg white -e bash -c "topgrade; printf 'Pressione qualquer tecla para fechar...'; read -n1"
 Icon=aptdaemon-update-cache
 Terminal=false
 Categories=System;Utility;
@@ -37,7 +37,7 @@ EOF
 fi
 
 mkdir -p "$HOME"/.local/bin
-cat <<EOF |tee "$HOME"/.local/bin/search-app>/dev/null
+cat <<EOF | tee "$HOME"/.local/bin/search-app >/dev/null
 #!/bin/bash
 
 # Cores
