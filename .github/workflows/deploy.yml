@@ -17,7 +17,7 @@ jobs:
       - run: npm run build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
-      - run: mv uds*.deb uds.deb     
+      - run: mv dist/uds*.deb uds.deb     
       - name: Upload para o archive.org
         uses: palewire/internet-archive-upload@v1
         with:
