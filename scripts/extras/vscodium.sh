@@ -13,11 +13,15 @@ if [ $USER == rauldipeas ];then
 	cd yaru-vscode
 	npm install
 	npx vsce package
-	codium --install-extension yaru-vscode-*.vsix
-	codium --install-extension ms-ceintl.vscode-language-pack-pt-br
-	codium --install-extension ms-vscode.live-server
-	codium --install-extension pkief.material-icon-theme
-	codium --install-extension zardoy.npm-rapid-ready
+	codium --install-extension yaru-vscode-*.vsix --force
+	codium --install-extension EditorConfig.EditorConfig --force
+	codium --install-extension formulahendry.code-runner --force
+	codium --install-extension mkhl.shfmt --force
+	codium --install-extension ms-ceintl.vscode-language-pack-pt-br --force
+	codium --install-extension ms-vscode.live-server --force
+	codium --install-extension pkief.material-icon-theme --force
+	codium --install-extension redhat.vscode-yaml --force
+	codium --install-extension zardoy.npm-rapid-ready --force
     cat <<EOF |tee "$HOME"/.config/VSCodium/User/settings.json>/dev/null
 {
 	"editor.fontFamily": "'Ubuntu Mono', 'monospace', monospace",
