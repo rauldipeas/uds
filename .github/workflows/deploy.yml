@@ -6,12 +6,12 @@ jobs:
   trigger:
     runs-on: ubuntu-latest
     steps:
-      - name: Implantação no site https://rauldipeas.com.br
-        uses: peter-evans/repository-dispatch@v3
-        with:
-          token: ${{ secrets.GH_TOKEN }}
-          repository: rauldipeas/rauldipeas
-          event-type: build
+#      - name: Implantação no site https://rauldipeas.com.br
+#        uses: peter-evans/repository-dispatch@v3
+#        with:
+#          token: ${{ secrets.GH_TOKEN }}
+#          repository: rauldipeas/rauldipeas
+#          event-type: build
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
