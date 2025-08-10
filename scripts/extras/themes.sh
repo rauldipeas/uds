@@ -87,7 +87,7 @@ if [ "$(gsettings get org.gnome.desktop.interface icon-theme)" == "'Papirus-Dark
     ('Proton Mail Bridge', 'protonmail-indicator', ''),\
     ('q4wine', 'folder-white-wine', ''),\
     ('QjackCtl', 'gnome-device-manager', ''),\
-    ('rclone-browser', 'cloudstatus', ''),\
+    ('rclone-browser', 'rclonetray-tray', ''),\
     ('un-reboot', 'system-reboot-symbolic', ''),\
     ('veracrypt', 'veracrypt-panel', ''),\
     ('vlc', 'vlc-panel', '')\
