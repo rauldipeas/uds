@@ -31,10 +31,10 @@ ipcMain.handle('executar-scripts', async (_, scripts) => {
   let comando = "";
   scripts.forEach(script => {
     const url = `https://rauldipeas.com.br/uds/scripts/${script}`;
-    comando += `printf 'Executando ${script}...'; bash <(curl -s '${url}'); prinf; read -n1 -s -r -p 'Pressione qualquer tecla para continuar...'; clear; `;
+    comando += `echo 'Executando ${script}...'; bash <(curl -s '${url}'); echo; read -n1 -s -r -p 'Pressione qualquer tecla para continuar...'; clear; `;
   });
 
-  comando += `printf 'Todos os scripts foram executados.'; read -n1 -s -r -p 'Pressione qualquer tecla para fechar...';`;
+  comando += `echo 'Todos os scripts foram executados.'; read -n1 -s -r -p 'Pressione qualquer tecla para fechar...';`;
 
   const terminal = `command -v gnome-terminal &>/dev/null && gnome-terminal -- bash -c "${comando}" || xterm -T 'Instalação sequencial' -fa 'Ubuntu Mono' -fs 11 -bg '#300a25' -fg white -e bash -c "${comando}"`;
 
