@@ -15,8 +15,3 @@ jobs:
           node-version: '16'
       - run: npm install
       - run: npm run build
-      - uses: softprops/action-gh-release@v1
-        with:
-          files: 'dist/*.deb'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
