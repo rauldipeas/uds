@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=PipeWire Quantum
+Comment=Configura o quantum e o sample rate do PipeWire com interface gráfica
+Exec=pipewire-latency-switcher
+Icon=audio-speakers
+Terminal=false
+Type=Application
+Categories=Audio;AudioVideo;
+StartupNotify=true
