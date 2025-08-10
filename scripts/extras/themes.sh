@@ -88,6 +88,7 @@ if [ "$(gsettings get org.gnome.desktop.interface icon-theme)" == "'Papirus-Dark
     ('q4wine', 'folder-white-wine', ''),\
     ('QjackCtl', 'gnome-device-manager', ''),\
     ('rclone-browser', 'rclonetray-tray', ''),\
+    ('systray', 'cloudstatus', ''),\
     ('un-reboot', 'system-reboot-symbolic', ''),\
     ('veracrypt', 'veracrypt-panel', ''),\
     ('vlc', 'vlc-panel', '')\
