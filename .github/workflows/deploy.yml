@@ -1,4 +1,4 @@
-name: Implantação/Lançamento
+name:
 on:
     push:
       branches:
@@ -15,3 +15,10 @@ jobs:
           node-version: '16'
       - run: npm install
       - run: npm run build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}      
+      - uses: softprops/action-gh-release@v1
+        with:
+          files: 'dist/*.deb'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
