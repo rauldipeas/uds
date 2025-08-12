@@ -1,4 +1,5 @@
-# Ubuntu Derivatives Studio (Estúdio nos derivados do Ubuntu)
+# Ubuntu Derivatives Studio
+## _Estúdio nos derivados do Ubuntu_
 
 ![](https://github.com/rauldipeas/uds/raw/main/screenshot.png)
 
