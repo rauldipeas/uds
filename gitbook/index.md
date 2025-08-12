@@ -10,13 +10,12 @@ Além dessas configurações, o script também instala diversos programas relaci
 É importante ressaltar que, pra que todos os scripts funcionem corretamente, é necessário marcar todas os ítens da categoria _**Core**_, que vai do primeiro ítem _**Dependências**_ até o ítem _**Synaptic**_.
 
 Em algumas distros, pode ser necessário instalar o `xterm` antes de rodar o script.
-
-```
+```bash
 sudo apt install -y xterm
 ```
 
 Pra instalar o script é só rodar o comando abaixo:
-```
+```bash
 bash <(curl -s https://rauldipeas.com.br/install-uds)
 ```
 
