@@ -1,11 +1,10 @@
 #!/bin/bash
 set -e
-DEPS='vlc vlc-plugin-jack'
+# shellcheck disable=SC2034
 PPA='obsproject/obs-studio'
+# shellcheck disable=SC2034
 INSTNAME='obs-studio'
+# shellcheck disable=SC1090
 source <(curl -s https://rauldipeas.com.br/uds/functions.sh)
 add_ppa
 install_deb
-for type in $(grep -E '^(audio|video)/' /usr/share/mime/types | cut -d: -f1); do
-    xdg-mime default vlc.desktop "$type"
-done

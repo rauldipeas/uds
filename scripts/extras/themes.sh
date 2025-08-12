@@ -92,7 +92,6 @@ if [ "$(gsettings get org.gnome.desktop.interface icon-theme)" == "'Papirus-Dark
     ('systray', 'cloudstatus', ''),\
     ('un-reboot', 'system-reboot-symbolic', ''),\
     ('veracrypt', 'veracrypt-panel', ''),\
-    ('vlc', 'vlc-panel', '')\
   ]"
 else
   dconf write /org/gnome/shell/extensions/appindicator/custom-icons "[\
