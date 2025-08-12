@@ -1,6 +1,6 @@
 # Ubuntu Derivatives Studio (Estúdio nos derivados do Ubuntu)
 
-![](screenshot.png)
+![](https://github.com/rauldipeas/raw/main/screenshot.png)
 
 Este é um script que tem como objetivo configurar o Ubuntu e seus derivados pra trabalhar com criação de conteúdo multimídia, com foco especial no áudio em baixíssima latência.
 

@@ -1,9 +1,20 @@
 name: Compilação do UDS
 on:
-    push:
-      branches:
+  push:
+    branches:
         - main
-    workflow_dispatch:
+    paths-ignore:
+      - '.editorconfig'
+      - '.gitignore'
+      - 'leiame.md'
+      - 'license'
+      - 'readme.md'
+      - 'to-do.log'
+      - '*.jpg'
+      - '*.png'
+      - '*.svg'
+      - 'gitbook/**'
+  workflow_dispatch:
 
 jobs:
   trigger:
