@@ -31,17 +31,19 @@ rm -f /tmp/bibata/*.xz
 wget -q --show-progress "$(curl -s https://api.github.com/repos/ful1e5/Bibata_Cursor/releases | grep browser_download_url | grep download | grep Modern-Ice.tar.xz | head -n1 | cut -d '"' -f4)"
 tar -xf Bibata*.tar.xz
 rm Bibata*.tar.xz
-sudo mv Bibata* /usr/share/icons/
+sudo cp -r Bibata* /usr/share/icons/
 sudo update-alternatives --install /usr/share/icons/default/index.theme x-cursor-theme /usr/share/icons/Bibata-Modern-Ice/cursor.theme 100
-#sudo update-alternatives --set x-cursor-theme /usr/share/icons/Bibata-Modern-Ice/cursor.theme
+sudo update-alternatives --set x-cursor-theme /usr/share/icons/Bibata-Modern-Ice/cursor.theme
 gsettings set org.gnome.desktop.interface cursor-theme Bibata-Modern-Ice
 
 ## GNOME shell
-sudo apt install -y --reinstall gnome-shell-extension-alphabetical-grid gnome-shell-extension- gsconnect
-#    gnome-shell-extension-prefs
+sudo apt install -y --reinstall\
+  gnome-shell-extension-alphabetical-grid\
+  gnome-shell-extension-gsconnect
+  #gnome-shell-extension-prefs
 
 mkdir -p "$HOME"/.local/share/applications
-cat <<EOF | tee "$HOME"/.local/share/applications/gnome-extensions-web.desktop
+cat <<EOF | tee "$HOME"/.local/share/applications/gnome-extensions-web.desktop >/dev/null
 [Desktop Entry]
 Type=Application
 Name=Extensions
@@ -57,16 +59,16 @@ dconf reset -f /org/gnome/shell/extensions/dash-to-dock/
 dconf reset -f /org/gnome/shell/extensions/ding/
 dconf reset -f /org/gnome/shell/extensions/tiling-assistant/
 
-gsettings set org.gnome.shell.extensions.dash-to-dock click-action minimize
-gsettings set org.gnome.shell.extensions.dash-to-dock dock-fixed false
-gsettings set org.gnome.shell.extensions.dash-to-dock dock-position BOTTOM
-gsettings set org.gnome.shell.extensions.dash-to-dock extend-height false
-gsettings set org.gnome.shell.extensions.dash-to-dock show-show-apps-button false
-gsettings set org.gnome.shell.extensions.dash-to-dock show-icons-notifications-counter false
+#gsettings set org.gnome.shell.extensions.dash-to-dock click-action minimize
+#gsettings set org.gnome.shell.extensions.dash-to-dock dock-fixed false
+#gsettings set org.gnome.shell.extensions.dash-to-dock dock-position BOTTOM
+#gsettings set org.gnome.shell.extensions.dash-to-dock extend-height false
+#gsettings set org.gnome.shell.extensions.dash-to-dock show-show-apps-button false
+#gsettings set org.gnome.shell.extensions.dash-to-dock show-icons-notifications-counter false
 
-gsettings set org.gnome.shell.extensions.ding keep-arranged true
-gsettings set org.gnome.shell.extensions.ding show-home false
-gsettings set org.gnome.shell.extensions.ding start-corner top-right
+#gsettings set org.gnome.shell.extensions.ding keep-arranged true
+#gsettings set org.gnome.shell.extensions.ding show-home false
+#gsettings set org.gnome.shell.extensions.ding start-corner top-right
 
 dconf write /org/gnome/shell/extensions/alphabetical-app-grid/sort-folder-contents false
 
@@ -87,7 +89,6 @@ if [ "$(gsettings get org.gnome.desktop.interface icon-theme)" == "'Papirus-Dark
     ('Proton Mail Bridge', 'protonmail-indicator', ''),\
     ('q4wine', 'folder-white-wine', ''),\
     ('QjackCtl', 'gnome-device-manager', ''),\
-    ('rclone-browser', 'rclonetray-tray', ''),\
     ('systray', 'cloudstatus', ''),\
     ('un-reboot', 'system-reboot-symbolic', ''),\
     ('veracrypt', 'veracrypt-panel', ''),\
@@ -158,14 +159,14 @@ dconf reset -f /org/gnome/shell/extensions/editdesktopfiles/
 dconf write /org/gnome/shell/extensions/editdesktopfiles/custom-edit-command "'x-terminal-emulator -e micro %U'"
 dconf write /org/gnome/shell/extensions/editdesktopfiles/use-custom-edit-command true
 
-dconf reset -f /org/gnome/shell/extensions/Logo-menu/
-dconf write /org/gnome/shell/extensions/Logo-menu/menu-button-icon-image 5
-dconf write /org/gnome/shell/extensions/Logo-menu/menu-button-icon-size 22
-dconf write /org/gnome/shell/extensions/Logo-menu/menu-button-terminal "'x-terminal-emulator'"
-dconf write /org/gnome/shell/extensions/Logo-menu/show-activities-button true
-dconf write /org/gnome/shell/extensions/Logo-menu/show-lockscreen true
-dconf write /org/gnome/shell/extensions/Logo-menu/show-power-options true
-dconf write /org/gnome/shell/extensions/Logo-menu/symbolic-icon true
+#dconf reset -f /org/gnome/shell/extensions/Logo-menu/
+#dconf write /org/gnome/shell/extensions/Logo-menu/menu-button-icon-image 5
+#dconf write /org/gnome/shell/extensions/Logo-menu/menu-button-icon-size 22
+#dconf write /org/gnome/shell/extensions/Logo-menu/menu-button-terminal "'x-terminal-emulator'"
+#dconf write /org/gnome/shell/extensions/Logo-menu/show-activities-button true
+#dconf write /org/gnome/shell/extensions/Logo-menu/show-lockscreen true
+#dconf write /org/gnome/shell/extensions/Logo-menu/show-power-options true
+#dconf write /org/gnome/shell/extensions/Logo-menu/symbolic-icon true
 
 dconf reset -f /org/gnome/shell/extensions/rounded-window-corners-reborn/
 dconf write /org/gnome/shell/extensions/rounded-window-corners-reborn/blacklist "['gnome-terminal-server']"
@@ -186,15 +187,15 @@ dconf write /org/gnome/shell/extensions/rounded-window-corners-reborn/global-rou
     'enabled': <true>\
 }"
 
-dconf write /org/gnome/shell/extensions/status-area-horizontal-spacing/hpadding 3
+#dconf write /org/gnome/shell/extensions/status-area-horizontal-spacing/hpadding 3
 
 dconf write /org/gnome/shell/extensions/syncthing-toggle/port 8080
 if [ "$(gsettings get org.gnome.desktop.interface icon-theme)" == "'Papirus-Dark'" ]; then
   dconf write /org/gnome/shell/extensions/syncthing-toggle/icon-name "'si-syncthing-idle'"
 fi
 
-dconf reset -f /org/gnome/shell/extensions/window-title-is-back/
-dconf write /org/gnome/shell/extensions/window-title-is-back/colored-icon true
+#dconf reset -f /org/gnome/shell/extensions/window-title-is-back/
+#dconf write /org/gnome/shell/extensions/window-title-is-back/colored-icon true
 
 dconf reset -f /org/gnome/shell/extensions/window-centering/
 dconf write /org/gnome/shell/extensions/window-centering/allow-forced-resize true
@@ -205,6 +206,7 @@ dconf write /org/gnome/shell/extensions/window-centering/frame-width 94
 gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 gsettings set org.gnome.desktop.sound allow-volume-above-100-percent true
 gsettings set org.gnome.mutter center-new-windows true
+gsettings set org.gnome.mutter check-alive-timeout 20000
 gsettings set org.gnome.nautilus.icon-view default-zoom-level small-plus
 gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true
 gsettings set org.gnome.settings-daemon.plugins.color night-light-temperature 'uint32 3700'
@@ -239,38 +241,54 @@ gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profi
 
 gei 5895 # app-hider
 #gei 3193 # blur-my-shell
+gei 1160 # dash-to-panel
 gei 7397 # edit-desktop-files
 gei 5410 # grand-theft-focus
 #gei 1319 # gsconnect
-gei 4451 # logo-menu
+#gei 4451 # logo-menu
 gei 7048 # rounded-window-corners-reborn
-gei 355  # status-area-horizontal-spacing
+#gei 355  # status-area-horizontal-spacing
 gei 7180 # syncthing-toggle
-#gei 6586 # system-monitor-tray-indicator
-gei 3960 # transparent-top-bar-adjustable-transparency
+#gei 3960 # transparent-top-bar-adjustable-transparency
 #gei 19   # user-themes
 gei 6281 # wallpaper-slideshow
 gei 8087 # window-centering
 gei 6343 # window-gestures
-gei 6310 # window-title-is-back
+#gei 6310 # window-title-is-back
 
-cat <<EOF | tee "$HOME"/.local/bin/enable-extensions >/dev/null
-#!/bin/bash
-for ext in \$(gnome-extensions list); do
-  gnome-extensions enable "\$ext"
-done
-rm "\$HOME"/.config/autostart/enable-extensions.desktop "\$HOME"/.local/bin/enable-extensions
-EOF
-cat <<EOF | tee "$HOME"/.config/autostart/enable-extensions.desktop >/dev/null
-[Desktop Entry]
-Type=Application
-Name=Ativar extensões do GNOME
-Exec=bash $HOME/.local/bin/enable-extensions
-Icon=org.gnome.Shell.Extensions
-Terminal=false
-Categories=System;Utility;
-StartupNotify=true
-EOF
+gnome-extensions disable ding@rastersoft.com
+gnome-extensions disable ubuntu-dock@ubuntu.com
+gnome-extensions enable AlphabeticalAppGrid@stuarthayhurst
+gnome-extensions enable app-hider@lynith.dev
+gnome-extensions enable azwallpaper@azwallpaper.gitlab.com
+gnome-extensions enable dash-to-panel@jderose9.github.com
+gnome-extensions enable editdesktopfiles@dannflower
+gnome-extensions enable grand-theft-focus@zalckos.github.com
+gnome-extensions enable gsconnect@andyholmes.github.io
+gnome-extensions enable rounded-window-corners@fxgn
+gnome-extensions enable syncthing-toggle@rehhouari.github.com
+gnome-extensions enable tiling-assistant@ubuntu.com
+gnome-extensions enable ubuntu-appindicators@ubuntu.com
+gnome-extensions enable window-centering@hnjjhmtr27
+gnome-extensions enable windowgestures@extension.amarullz.com
+
+#cat <<EOF | tee "$HOME"/.local/bin/enable-extensions >/dev/null
+##!/bin/bash
+#for ext in \$(gnome-extensions list); do
+#  gnome-extensions enable "\$ext"
+#done
+#rm "\$HOME"/.config/autostart/enable-extensions.desktop "\$HOME"/.local/bin/enable-extensions
+#EOF
+#cat <<EOF | tee "$HOME"/.config/autostart/enable-extensions.desktop >/dev/null
+#[Desktop Entry]
+#Type=Application
+#Name=Ativar extensões do GNOME
+#Exec=bash $HOME/.local/bin/enable-extensions
+#Icon=org.gnome.Shell.Extensions
+#Terminal=false
+#Categories=System;Utility;
+#StartupNotify=true
+#EOF
 
 ## Papirus icon theme
 sudo add-apt-repository -y ppa:papirus/papirus
