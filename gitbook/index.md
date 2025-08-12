@@ -7,8 +7,6 @@ Este é um script que tem como objetivo configurar o Ubuntu e seus derivados pra
 
 Além dessas configurações, o script também instala diversos programas relacionados com configurações específicas pra otimizar o desempenho e a usabilidade.
 
-Pra quem quiser testar o estágio inicial do script, já tá tudo funcionando, eu só preciso melhorar o aspecto visual, pra ficar mais clara a separação das categorias.
-
 É importante ressaltar que, pra que todos os scripts funcionem corretamente, é necessário marcar todas os ítens da categoria _**Core**_, que vai do primeiro ítem _**Dependências**_ até o ítem _**Synaptic**_.
 
 Em algumas distros, pode ser necessário instalar o `xterm` antes de rodar o script.
