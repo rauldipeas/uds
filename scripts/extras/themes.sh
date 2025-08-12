@@ -155,6 +155,9 @@ dconf write /org/gnome/shell/extensions/azwallpaper/slideshow-slide-duration "(0
 #    }\
 #}"
 
+dconf reset -f /org/gnome/shell/extensions/dash-to-panel/
+dconf load /org/gnome/shell/extensions/dash-to-panel/ <(wget -qO- https://rauldipeas.com.br/uds/settings/dash-to-panel.conf)
+
 dconf reset -f /org/gnome/shell/extensions/editdesktopfiles/
 dconf write /org/gnome/shell/extensions/editdesktopfiles/custom-edit-command "'x-terminal-emulator -e micro %U'"
 dconf write /org/gnome/shell/extensions/editdesktopfiles/use-custom-edit-command true
