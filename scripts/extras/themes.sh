@@ -296,4 +296,5 @@ gnome-extensions enable windowgestures@extension.amarullz.com
 sudo add-apt-repository -y ppa:papirus/papirus
 sudo apt install -y --reinstall papirus-icon-theme
 gsettings set org.gnome.desktop.interface icon-theme Papirus-Dark
-papirus-folders -C paleorange
+#papirus-folders -C paleorange
+papirus-folders -C yaru
