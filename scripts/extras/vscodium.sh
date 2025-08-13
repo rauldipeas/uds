@@ -17,10 +17,12 @@ if [ "$USER" == rauldipeas ]; then
 	codium --install-extension EditorConfig.EditorConfig --force
 	codium --install-extension formulahendry.code-runner --force
 	codium --install-extension mkhl.shfmt --force
+	codium --install-extension mkhl.shfmt --force
 	codium --install-extension ms-ceintl.vscode-language-pack-pt-br --force
 	codium --install-extension ms-vscode.live-server --force
 	codium --install-extension pkief.material-icon-theme --force
 	codium --install-extension redhat.vscode-yaml --force
+	codium --install-extension timonwong.shellcheck --force
 	codium --install-extension zardoy.npm-rapid-ready --force
 	cat <<EOF | tee "$HOME"/.config/VSCodium/User/settings.json >/dev/null
 {
