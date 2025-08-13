@@ -76,6 +76,7 @@ dconf write /org/gnome/shell/extensions/app-hider/hidden-apps "[\
     'diodon.desktop',\
     'display-im6.q16.desktop',\
     'micro.desktop',\
+    'mpv.desktop',\
     'syncthing-start.desktop',\
     'syncthing-ui.desktop',\
     'winetricks.desktop'\
