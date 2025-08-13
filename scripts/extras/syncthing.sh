@@ -7,3 +7,5 @@ source <(curl -s https://rauldipeas.com.br/uds/functions.sh)
 enter_tmp
 download
 install_deb
+#sudo systemctl enable syncthing@"$USER".service
+#sudo systemctl start syncthing@"$USER".service
