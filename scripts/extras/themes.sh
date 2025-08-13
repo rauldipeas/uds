@@ -171,6 +171,9 @@ dconf write /org/gnome/shell/extensions/editdesktopfiles/use-custom-edit-command
 #dconf write /org/gnome/shell/extensions/Logo-menu/show-power-options true
 #dconf write /org/gnome/shell/extensions/Logo-menu/symbolic-icon true
 
+dconf reset -f /org/gnome/shell/extensions/notification-configurator/
+dconf write /org/gnome/shell/extensions/notification-configurator/notification-position "'right'"
+
 dconf reset -f /org/gnome/shell/extensions/rounded-window-corners-reborn/
 dconf write /org/gnome/shell/extensions/rounded-window-corners-reborn/blacklist "['gnome-terminal-server']"
 dconf write /org/gnome/shell/extensions/rounded-window-corners-reborn/global-rounded-corner-settings "{\
@@ -249,6 +252,7 @@ gei 7397 # edit-desktop-files
 gei 5410 # grand-theft-focus
 #gei 1319 # gsconnect
 #gei 4451 # logo-menu
+gei 8249 # notification-configurator
 gei 7048 # rounded-window-corners-reborn
 #gei 355  # status-area-horizontal-spacing
 gei 7180 # syncthing-toggle
@@ -268,6 +272,7 @@ gnome-extensions enable dash-to-panel@jderose9.github.com
 gnome-extensions enable editdesktopfiles@dannflower
 gnome-extensions enable grand-theft-focus@zalckos.github.com
 gnome-extensions enable gsconnect@andyholmes.github.io
+gnome-extensions enable notification-configurator@exposedcat
 gnome-extensions enable rounded-window-corners@fxgn
 gnome-extensions enable syncthing-toggle@rehhouari.github.com
 gnome-extensions enable tiling-assistant@ubuntu.com
