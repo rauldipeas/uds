@@ -1,28 +1,7 @@
 #!/bin/bash
 set -e
-gei() {
-  ID="$1"
-  SHELL_VER="$(gnome-shell --version | awk '{print $3}')"
-  EXT_INFO="$(curl -s "https://extensions.gnome.org/extension-info/?pk=$ID&shell_version=$SHELL_VER")"
-  UUID="$(printf "%s" "$EXT_INFO" | jq -r .uuid)"
-  DOWNLOAD_URL="$(printf "%s" "$EXT_INFO" | jq -r .download_url)"
-
-  if [ -z "$UUID" ] || [ "$DOWNLOAD_URL" = "null" ]; then
-    printf "%s" "Falha ao obter UUID ou URL. Verifique se a extensão suporta GNOME $SHELL_VER".
-    return 1
-  fi
-
-  FULL_URL="https://extensions.gnome.org$DOWNLOAD_URL"
-  TMPFILE=$(mktemp)
-  if ! wget -q --show-progress -O "$TMPFILE" "$FULL_URL"; then
-    printf "Falha no download."
-    rm -f "$TMPFILE"
-    return 1
-  fi
-
-  gnome-extensions install -f "$TMPFILE" && printf "%s" "Extensão instalada: $UUID"
-  rm -f "$TMPFILE"
-}
+# shellcheck disable=SC1090
+source <(curl -s https://rauldipeas.com.br/uds/functions.sh)
 
 ## Bibata mouse cursor
 mkdir -p /tmp/bibata
@@ -114,49 +93,10 @@ dconf write /org/gnome/shell/extensions/azwallpaper/slideshow-directory "'/home/
 dconf write /org/gnome/shell/extensions/azwallpaper/slideshow-slide-duration "(0, 5, 0)"
 
 #dconf reset -f /org/gnome/shell/extensions/blur-my-shell/
-#dconf write /org/gnome/shell/extensions/blur-my-shell/applications/blur true
-#dconf write /org/gnome/shell/extensions/blur-my-shell/applications/whitelist "['gnome-terminal-server']"
-#dconf write /org/gnome/shell/extensions/blur-my-shell/dash-to-dock/override-background true
-#dconf write /org/gnome/shell/extensions/blur-my-shell/dash-to-dock/unblur-in-overview true
-#dconf write /org/gnome/shell/extensions/blur-my-shell/panel/override-background-dynamically true
-#dconf write /org/gnome/shell/extensions/blur-my-shell/pipelines "{\
-#    'pipeline_default': {\
-#        'name': <'Default'>,\
-#        'effects': <[\
-#            <{\
-#                'type': <'native_static_gaussian_blur'>,\
-#                'id': <'effect_000000000000'>,\
-#                'params': <{\
-#                    'radius': <30>,\
-#                    'brightness': <0.59999999999999998>\
-#                }>\
-#            }>\
-#        ]>\
-#    },\
-#    'pipeline_default_rounded': {\
-#        'name': <'Default rounded'>,\
-#        'effects': <[\
-#            <{\
-#                'type': <'native_static_gaussian_blur'>,\
-#                'id': <'effect_000000000001'>,\
-#                'params': <{\
-#                    'radius': <30>,\
-#                    'brightness': <0.59999999999999998>\
-#                }>\
-#            }>,\
-#            <{\
-#                'type': <'corner'>,\
-#                'id': <'effect_000000000002'>,\
-#                'params': <{\
-#                    'radius': <10>\
-#                }>\
-#            }>\
-#        ]>\
-#    }\
-#}"
+#dconf load /org/gnome/shell/extensions/dash-to-panel/ <(wget -qO- https://rauldipeas.com.br/uds/settings/desktop/gnome/blur-my-shell.conf)
 
 dconf reset -f /org/gnome/shell/extensions/dash-to-panel/
-dconf load /org/gnome/shell/extensions/dash-to-panel/ <(wget -qO- https://rauldipeas.com.br/uds/settings/dash-to-panel.conf)
+dconf load /org/gnome/shell/extensions/dash-to-panel/ <(wget -qO- https://rauldipeas.com.br/uds/settings/desktop/gnome/dash-to-panel.conf)
 
 dconf reset -f /org/gnome/shell/extensions/editdesktopfiles/
 dconf write /org/gnome/shell/extensions/editdesktopfiles/custom-edit-command "'x-terminal-emulator -e micro %U'"

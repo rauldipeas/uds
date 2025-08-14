@@ -65,3 +65,27 @@ install_deb() {
         sudo apt install -y --reinstall "$(sudo find /tmp -mindepth 1 -maxdepth 1 -writable -not -path "/tmp/.veracrypt*" -not -path "*-unix*" -name '*.deb')"
     fi
 }
+
+gei() {
+  ID="$1"
+  SHELL_VER="$(gnome-shell --version | awk '{print $3}')"
+  EXT_INFO="$(curl -s "https://extensions.gnome.org/extension-info/?pk=$ID&shell_version=$SHELL_VER")"
+  UUID="$(printf "%s" "$EXT_INFO" | jq -r .uuid)"
+  DOWNLOAD_URL="$(printf "%s" "$EXT_INFO" | jq -r .download_url)"
+
+  if [ -z "$UUID" ] || [ "$DOWNLOAD_URL" = "null" ]; then
+    printf "%s" "Falha ao obter UUID ou URL. Verifique se a extensão suporta GNOME $SHELL_VER".
+    return 1
+  fi
+
+  FULL_URL="https://extensions.gnome.org$DOWNLOAD_URL"
+  TMPFILE=$(mktemp)
+  if ! wget -q --show-progress -O "$TMPFILE" "$FULL_URL"; then
+    printf "Falha no download."
+    rm -f "$TMPFILE"
+    return 1
+  fi
+
+  gnome-extensions install -f "$TMPFILE" && printf "%s" "Extensão instalada: $UUID"
+  rm -f "$TMPFILE"
+}

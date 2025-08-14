@@ -23,20 +23,20 @@ sudo sed -i 's/ nosmt=force//g' /etc/default/grub.d/ubuntustudio.cfg
 sudo sed -i 's/threadirqs/threadirqs nosmt=force/g' /etc/default/grub.d/ubuntustudio.cfg
 sudo update-grub
 mkdir -p "$HOME"/.config/rncbc.org
-wget -q --show-progress -O "$HOME"/.config/rncbc.org/QjackCtl.conf https://rauldipeas.com.br/uds/settings/QjackCtl.conf
+wget -q --show-progress -O "$HOME"/.config/rncbc.org/QjackCtl.conf https://rauldipeas.com.br/uds/settings/audio/jack/QjackCtl.conf
 mkdir -p "$HOME"/.config/pipewire/pipewire.conf.d
 export QOPT=128
 export ROPT=44100
-curl -s https://rauldipeas.com.br/uds/settings/99-custom.conf | envsubst | tee "$HOME"/.config/pipewire/pipewire.conf.d/99-custom.conf >/dev/null
+curl -s https://rauldipeas.com.br/uds/settings/audio/pipewire/99-custom.conf | envsubst | tee "$HOME"/.config/pipewire/pipewire.conf.d/99-custom.conf >/dev/null
 systemctl --user restart pipewire pipewire-pulse
 sudo mkdir -p /usr/local/{bin,share/applications}
-sudo wget -q --show-progress -O /usr/local/bin/pipewire-latency-switcher https://rauldipeas.com.br/uds/settings/pipewire-latency-switcher
+sudo wget -q --show-progress -O /usr/local/bin/pipewire-latency-switcher https://rauldipeas.com.br/uds/settings/audio/pipewire/pipewire-latency-switcher
 sudo chmod +x /usr/local/bin/pipewire-latency-switcher
-sudo wget -q --show-progress -O /usr/local/share/applications/pipewire-latency-switcher.desktop https://rauldipeas.com.br/uds/settings/pipewire-latency-switcher.desktop
+sudo wget -q --show-progress -O /usr/local/share/applications/pipewire-latency-switcher.desktop https://rauldipeas.com.br/uds/settings/audio/pipewire/pipewire-latency-switcher.desktop
 if [ "$(gsettings get org.gnome.desktop.interface icon-theme)" == "'Papirus-Dark'" ]; then
 	sudo sed -i 's/audio-speakers/hifi' /usr/local/share/applications/pipewire-latency-switcher.desktop
 fi
-sudo wget -q --show-progress -O /usr/local/bin/toggle-pipewire-jack https://rauldipeas.com.br/uds/settings/toggle-pipewire-jack
+sudo wget -q --show-progress -O /usr/local/bin/toggle-pipewire-jack https://rauldipeas.com.br/uds/settings/audio/pipewire/toggle-pipewire-jack
 sudo chmod +x /usr/local/bin/toggle-pipewire-jack
 mkdir -p "$HOME"/.config/nohang
 cat <<EOF | tee "$HOME"/.config/nohang/nohang.conf >/dev/null
