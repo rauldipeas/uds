@@ -67,25 +67,37 @@ install_deb() {
 }
 
 gei() {
-  ID="$1"
-  SHELL_VER="$(gnome-shell --version | awk '{print $3}')"
-  EXT_INFO="$(curl -s "https://extensions.gnome.org/extension-info/?pk=$ID&shell_version=$SHELL_VER")"
-  UUID="$(printf "%s" "$EXT_INFO" | jq -r .uuid)"
-  DOWNLOAD_URL="$(printf "%s" "$EXT_INFO" | jq -r .download_url)"
+    ID="$1"
+    SHELL_VER="$(gnome-shell --version | awk '{print $3}')"
+    EXT_INFO="$(curl -s "https://extensions.gnome.org/extension-info/?pk=$ID&shell_version=$SHELL_VER")"
+    UUID="$(printf "%s" "$EXT_INFO" | jq -r .uuid)"
+    DOWNLOAD_URL="$(printf "%s" "$EXT_INFO" | jq -r .download_url)"
 
-  if [ -z "$UUID" ] || [ "$DOWNLOAD_URL" = "null" ]; then
-    printf "%s" "Falha ao obter UUID ou URL. Verifique se a extensão suporta GNOME $SHELL_VER".
-    return 1
-  fi
+    if [ -z "$UUID" ] || [ "$DOWNLOAD_URL" = "null" ]; then
+        printf "%s" "Falha ao obter UUID ou URL. Verifique se a extensão suporta GNOME $SHELL_VER".
+        return 1
+    fi
 
-  FULL_URL="https://extensions.gnome.org$DOWNLOAD_URL"
-  TMPFILE=$(mktemp)
-  if ! wget -q --show-progress -O "$TMPFILE" "$FULL_URL"; then
-    printf "Falha no download."
+    FULL_URL="https://extensions.gnome.org$DOWNLOAD_URL"
+    TMPFILE=$(mktemp)
+    if ! wget -q --show-progress -O "$TMPFILE" "$FULL_URL"; then
+        printf "Falha no download."
+        rm -f "$TMPFILE"
+        return 1
+    fi
+
+    gnome-extensions install -f "$TMPFILE" && printf "%s" "Extensão instalada: $UUID"
     rm -f "$TMPFILE"
-    return 1
-  fi
+}
 
-  gnome-extensions install -f "$TMPFILE" && printf "%s" "Extensão instalada: $UUID"
-  rm -f "$TMPFILE"
+set_bashrc() {
+    mkdir -p "$HOME"/.bashrc.d
+    cp /etc/skel/.bashrc "$HOME"/.bashrc.d/default-bashrc.sh
+    cat <<EOF | tee "$HOME"/.bashrc >/dev/null
+if [ -d "\$HOME/.bashrc.d" ]; then
+  for f in "\$HOME"/.bashrc.d/*.sh; do
+    [ -r "\$f" ] && . "\$f"
+  done
+fi
+EOF
 }

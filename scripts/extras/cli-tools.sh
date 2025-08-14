@@ -1,16 +1,7 @@
 #!/bin/bash
 set -e
-set_bashrc() {
-  mkdir -p "$HOME"/.bashrc.d
-  cp /etc/skel/.bashrc "$HOME"/.bashrc.d/default-bashrc.sh
-  cat <<EOF | tee "$HOME"/.bashrc >/dev/null
-if [ -d "\$HOME/.bashrc.d" ]; then
-  for f in "\$HOME"/.bashrc.d/*.sh; do
-    [ -r "\$f" ] && . "\$f"
-  done
-fi
-EOF
-}
+# shellcheck disable=SC1090
+source <(curl -s https://rauldipeas.com.br/uds/functions.sh)
 
 ## Bat
 sudo apt install -y --reinstall bat #batcat
@@ -109,4 +100,11 @@ cat <<EOF | tee "$HOME"/.config/micro/settings.json >/dev/null
 {
     "eofnewline": false
 }
+EOF
+
+## Path
+set_bashrc
+cat <<EOF | tee "$HOME"/.bashrc.d/path.sh >/dev/null
+export PATH="\$HOME"/.npm-global/bin:"\$PATH"
+export PATH="\$HOME"/.local/share/gem/ruby/3.2.0/bin:"\$PATH"
 EOF
