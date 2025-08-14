@@ -20,7 +20,7 @@ wget -qO- https://download.opensuse.org/repositories/home:/Ximi1970/xUbuntu_24.0
 printf 'deb https://download.opensuse.org/repositories/home:/Ximi1970:/Mozilla:/Add-ons/xUbuntu_24.04 ./' | sudo tee /etc/apt/sources.list.d/systray-x.list >/dev/null
 sudo apt update
 add_ppa
-cat <<EOF | sudo tee /etc/apt/preferences.d/thunderbird >/dev/null
+sudo tee /etc/apt/preferences.d/thunderbird >/dev/null <<EOF
 Package: thunderbird*
 Pin: release o=LP-PPA-mozillateam
 Pin-Priority: 1001

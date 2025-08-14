@@ -22,7 +22,7 @@ sudo apt install -y --reinstall\
   #gnome-shell-extension-prefs
 
 mkdir -p "$HOME"/.local/share/applications
-cat <<EOF | tee "$HOME"/.local/share/applications/gnome-extensions-web.desktop >/dev/null
+tee "$HOME"/.local/share/applications/gnome-extensions-web.desktop >/dev/null <<EOF
 [Desktop Entry]
 Type=Application
 Name=Extensions
@@ -220,14 +220,14 @@ gnome-extensions enable ubuntu-appindicators@ubuntu.com
 gnome-extensions enable window-centering@hnjjhmtr27
 gnome-extensions enable windowgestures@extension.amarullz.com
 
-#cat <<EOF | tee "$HOME"/.local/bin/enable-extensions >/dev/null
+#tee "$HOME"/.local/bin/enable-extensions >/dev/null <<EOF
 ##!/bin/bash
 #for ext in \$(gnome-extensions list); do
 #  gnome-extensions enable "\$ext"
 #done
 #rm "\$HOME"/.config/autostart/enable-extensions.desktop "\$HOME"/.local/bin/enable-extensions
 #EOF
-#cat <<EOF | tee "$HOME"/.config/autostart/enable-extensions.desktop >/dev/null
+#tee "$HOME"/.config/autostart/enable-extensions.desktop >/dev/null <<EOF
 #[Desktop Entry]
 #Type=Application
 #Name=Ativar extensões do GNOME

@@ -28,7 +28,7 @@ if [ "$USER" == rauldipeas ]; then
 	codium --install-extension timonwong.shellcheck --force
 	codium --install-extension yzhang.markdown-all-in-one --force
 	codium --install-extension zardoy.npm-rapid-ready --force
-	cat <<EOF | tee "$HOME"/.config/VSCodium/User/settings.json >/dev/null
+	tee "$HOME"/.config/VSCodium/User/settings.json >/dev/null <<EOF
 {
 	"editor.fontFamily": "'Ubuntu Mono', 'monospace', monospace",
 	"editor.occurrencesHighlight": "off",
@@ -51,7 +51,7 @@ if [ "$USER" == rauldipeas ]; then
 }
 EOF
 else
-	cat <<EOF | tee "$HOME"/.config/VSCodium/User/settings.json >/dev/null
+	tee "$HOME"/.config/VSCodium/User/settings.json >/dev/null <<EOF
 {
 	"editor.fontFamily": "'Ubuntu Mono', 'monospace', monospace",
   	"telemetry.enableTelemetry": false,

@@ -13,12 +13,12 @@ if command -v q4wine >/dev/null; then
 fi
 if [ "$XDG_CURRENT_DESKTOP" == ubuntu:GNOME ]; then
 	sudo apt install -y --reinstall qt5-gtk2-platformtheme qt5ct
-	cat <<EOF | sudo tee /etc/profile.d/qt-qpa.sh >/dev/null
+	sudo tee /etc/profile.d/qt-qpa.sh >/dev/null <<EOF
 export QT_QPA_PLATFORM=xcb
 export QT_QPA_PLATFORMTHEME=qt5ct
 EOF
 	mkdir -p "$HOME"/.config/qt5ct
-	cat <<EOF | tee "$HOME"/.config/qt5ct/qt5ct.conf >/dev/null
+	tee "$HOME"/.config/qt5ct/qt5ct.conf >/dev/null <<EOF
 [Appearance]
 style=gtk2
 EOF

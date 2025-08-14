@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
+# shellcheck disable=SC2034
 TARGET="$(curl -s https://api.github.com/repos/NatronGitHub/Natron/releases|grep browser_download_url|grep download|grep no-installer.tar.xz|head -n1|cut -d '"' -f4)"
+# shellcheck disable=SC1090
 source <(curl -s https://rauldipeas.com.br/uds/functions.sh)
 enter_tmp
 download
@@ -9,7 +11,7 @@ rm Natron*.tar.xz
 mv Natron* "$HOME"/.local/share/natron
 mkdir -p "$HOME"/.local/share/icons
 cp "$HOME"/.local/share/natron/Resources/pixmaps/natronIcon256_linux.png "$HOME"/.local/share/icons/natron.png
-cat <<EOF |tee "$HOME"/.local/share/applications/natron.desktop>/dev/null
+tee "$HOME"/.local/share/applications/natron.desktop>/dev/null <<EOF
 [Desktop Entry]
 Version=1.0
 Type=Application

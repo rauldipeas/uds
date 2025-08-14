@@ -12,7 +12,7 @@ else
 fi
 yabridgectl sync --prune --verbose
 if command -v gnome-terminal >/dev/null; then
-	cat <<EOF | tee "$HOME"/.local/share/applications/yabridge-sync.desktop >/dev/null
+	tee "$HOME"/.local/share/applications/yabridge-sync.desktop >/dev/null <<EOF
 [Desktop Entry]
 Type=Application
 Name=yabridge sync
@@ -23,7 +23,7 @@ Categories=System;Utility;
 StartupNotify=true
 EOF
 else
-	cat <<EOF | tee "$HOME"/.local/share/applications/yabridge-sync.desktop >/dev/null
+	tee "$HOME"/.local/share/applications/yabridge-sync.desktop >/dev/null <<EOF
 [Desktop Entry]
 Type=Application
 Name=yabridge sync

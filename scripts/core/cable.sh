@@ -8,12 +8,12 @@ enter_tmp
 download
 install_deb
 mkdir -p "$HOME"/.config/{autostart,cable}
-cat <<EOF | tee "$HOME"/.config/cable/config.ini >/dev/null
+tee "$HOME"/.config/cable/config.ini >/dev/null <<EOF
 [DEFAULT]
 tray_enabled = True
 EOF
 mkdir -p "$HOME"/.local/share/applications
-cat <<EOF | tee "$HOME"/.local/share/applications/cables.desktop >/dev/null
+tee "$HOME"/.local/share/applications/cables.desktop >/dev/null <<EOF
 [Desktop Entry]
 Name=Cables
 Exec=pw-jack cable %u

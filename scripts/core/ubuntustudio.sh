@@ -39,7 +39,7 @@ fi
 sudo wget -q --show-progress -O /usr/local/bin/toggle-pipewire-jack https://rauldipeas.com.br/uds/settings/audio/pipewire/toggle-pipewire-jack
 sudo chmod +x /usr/local/bin/toggle-pipewire-jack
 mkdir -p "$HOME"/.config/nohang
-cat <<EOF | tee "$HOME"/.config/nohang/nohang.conf >/dev/null
+tee "$HOME"/.config/nohang/nohang.conf >/dev/null <<EOF
 notify_every = 60       # intervalo entre notificações (em segundos)
 min_notify_mem = 200    # memória livre mínima antes de notificar (em MiB)
 EOF

@@ -10,7 +10,7 @@ rm mod-desktop*.tar.xz
 cp -r mod-desktop*/mod-desktop "$HOME"/.local/share/
 mkdir -p "$HOME"/.local/share/{applications,icons}
 wget -q --show-progress -O "$HOME"/.local/share/icons/mod-desktop.svg https://raw.githubusercontent.com/mod-audio/mod-desktop/refs/heads/main/res/mod-logo.svg
-cat <<EOF | tee "$HOME"/.local/share/applications/mod-desktop.desktop >/dev/null
+tee "$HOME"/.local/share/applications/mod-desktop.desktop >/dev/null <<EOF
 [Desktop Entry]
 Categories=AudioVideo;X-AudioEditing;Qt;
 Exec=$HOME/.local/share/mod-desktop/mod-desktop

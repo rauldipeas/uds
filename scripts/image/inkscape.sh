@@ -14,7 +14,7 @@ INSTNAME='inkscape'
 source <(curl -s https://rauldipeas.com.br/uds/functions.sh)
 fix_launcher
 install_deb
-cat <<EOF | sudo tee /usr/local/bin/inkscape_theme-fix >/dev/null
+sudo tee /usr/local/bin/inkscape_theme-fix >/dev/null <<EOF
 #!/bin/bash
 set -e
 env GTK_THEME=$(gsettings get org.gnome.desktop.interface gtk-theme) inkscape $@

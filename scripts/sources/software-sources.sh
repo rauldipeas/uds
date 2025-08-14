@@ -13,7 +13,7 @@ wget -q --show-progress "$(curl -s https://api.github.com/repos/topgrade-rs/topg
 sudo apt install -y --reinstall ./topgrade*.deb
 mkdir -p "$HOME"/.local/share/applications
 if command -v gnome-terminal >/dev/null; then
-  cat <<EOF | tee "$HOME"/.local/share/applications/topgrade.desktop >/dev/null
+  tee "$HOME"/.local/share/applications/topgrade.desktop >/dev/null <<EOF
 [Desktop Entry]
 Type=Application
 Name=Topgrade
@@ -24,7 +24,7 @@ Categories=System;Utility;
 StartupNotify=true
 EOF
 else
-  cat <<EOF | tee "$HOME"/.local/share/applications/topgrade.desktop >/dev/null
+  tee "$HOME"/.local/share/applications/topgrade.desktop >/dev/null <<EOF
 [Desktop Entry]
 Type=Application
 Name=Topgrade
@@ -37,7 +37,7 @@ EOF
 fi
 
 mkdir -p "$HOME"/.local/bin
-cat <<EOF | tee "$HOME"/.local/bin/search-app >/dev/null
+tee "$HOME"/.local/bin/search-app >/dev/null <<EOF
 #!/bin/bash
 
 # Cores

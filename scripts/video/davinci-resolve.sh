@@ -2,9 +2,9 @@
 set -e
 amd_support() {
 	sudo mkdir -p /etc/apt/keyrings
-	wget -q --show-progress -O- https://repo.radeon.com/rocm/rocm.gpg.key|sudo gpg --dearmor --yes -o /etc/apt/keyrings/rocm.gpg
-	printf 'deb [arch=amd64 signed-by=/etc/apt/keyrings/rocm.gpg] https://repo.radeon.com/rocm/apt/6.4.1 noble main'|sudo tee /etc/apt/sources.list.d/rocm.list>/dev/null
-	printf 'Package: *\nPin: release o=repo.radeon.com\nPin-Priority: 600'|sudo tee /etc/apt/preferences.d/rocm-pin-600 >/dev/null
+	wget -q --show-progress -O- https://repo.radeon.com/rocm/rocm.gpg.key | sudo gpg --dearmor --yes -o /etc/apt/keyrings/rocm.gpg
+	printf 'deb [arch=amd64 signed-by=/etc/apt/keyrings/rocm.gpg] https://repo.radeon.com/rocm/apt/6.4.1 noble main' | sudo tee /etc/apt/sources.list.d/rocm.list >/dev/null
+	printf 'Package: *\nPin: release o=repo.radeon.com\nPin-Priority: 600' | sudo tee /etc/apt/preferences.d/rocm-pin-600 >/dev/null
 	sudo apt update
 	sudo apt install -y --reinstall\
 		amd64-microcode\
@@ -38,9 +38,9 @@ install_resolve() {
 fix_pango() {
 	rm -f /tmp/*.deb
 	for pkg in libpango-1.0-0 libpangoft2-1.0-0 libpangocairo-1.0-0;do
-	wget -q --show-progress http://archive.ubuntu.com/ubuntu/pool/main/p/pango1.0/"$(curl -s http://archive.ubuntu.com/ubuntu/pool/main/p/pango1.0/|grep -oP "${pkg}_[^\"']+?amd64\.deb"|sort -V|tail -n1)"
+	wget -q --show-progress http://archive.ubuntu.com/ubuntu/pool/main/p/pango1.0/"$(curl -s http://archive.ubuntu.com/ubuntu/pool/main/p/pango1.0/ | grep -oP "${pkg}_[^\"']+?amd64\.deb" | sort -V | tail -n1)"
 	done
-	wget -q --show-progress http://archive.ubuntu.com/ubuntu/pool/main/g/gdk-pixbuf/"$(curl -s http://archive.ubuntu.com/ubuntu/pool/main/g/gdk-pixbuf/|grep -oP 'libgdk-pixbuf-2.0-0_[^"]+?amd64\.deb'|sort -V|tail -n1)"
+	wget -q --show-progress http://archive.ubuntu.com/ubuntu/pool/main/g/gdk-pixbuf/"$(curl -s http://archive.ubuntu.com/ubuntu/pool/main/g/gdk-pixbuf/ | grep -oP 'libgdk-pixbuf-2.0-0_[^"]+?amd64\.deb' | sort -V | tail -n1)"
 	dpkg-deb -x libpangocairo-1.0-0_1.50.6+ds-2ubuntu1_amd64.deb "$PWD"/pango
 	dpkg-deb -x libpango-1.0-0_1.50.6+ds-2ubuntu1_amd64.deb "$PWD"/pango
 	dpkg-deb -x libpangoft2-1.0-0_1.50.6+ds-2ubuntu1_amd64.deb "$PWD"/pango
@@ -56,25 +56,26 @@ link_ocl_libs() {
 fix_launcher() {
 	sudo ln -sf /opt/resolve/graphics/DV_Resolve.png /usr/share/icons/hicolor/128x128/apps/resolve.png
 	sudo sed -i 's|Icon=/opt/resolve/graphics/DV_Resolve.png|Icon=resolve|g' /usr/share/applications/com.blackmagicdesign.resolve.desktop
-	printf '\nStartupWMClass=resolve'|sudo tee -a /usr/share/applications/com.blackmagicdesign.resolve.desktop>/dev/null
+	printf '\nStartupWMClass=resolve' | sudo tee -a /usr/share/applications/com.blackmagicdesign.resolve.desktop >/dev/null
 }
 
+# shellcheck disable=SC2144
 if [ -f "$HOME"/Downloads/DaVinci_Resolve_*_Linux.zip ];then
-	gpu_info="$(lspci|grep -E "VGA|3D")"
-	if printf "$gpu_info"|grep -q NVIDIA>/dev/null;then
+	gpu_info="$(lspci | grep -E "VGA|3D")"
+	if printf "%s" "$gpu_info" | grep -q NVIDIA >/dev/null;then
   		nvidia_support
   		install_resolve
   		fix_pango
   		fix_launcher
 
-	elif printf "$gpu_info"|grep -q AMD>/dev/null;then
+	elif printf "%s" "$gpu_info" | grep -q AMD >/dev/null;then
 		amd_support
 		install_resolve
 		link_ocl_libs
 		fix_pango
 		fix_launcher
 		
-	elif printf "$gpu_info"|grep -q Intel>/dev/null;then
+	elif printf "%s" "$gpu_info" | grep -q Intel >/dev/null;then
   		printf 'Intel'
   		printf 'Sua GPU não é compatível com o DaVinci Resolve'
 	fi

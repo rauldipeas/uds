@@ -12,7 +12,7 @@ download() {
 fix_launcher() {
     # shellcheck disable=SC2153
     sudo rm -f /usr/local/share/custom-launchers/"$BASENAME"
-    cat <<EOF | sudo tee /usr/local/share/custom-launchers/"$BASENAME" >/dev/null
+    sudo tee /usr/local/share/custom-launchers/"$BASENAME" >/dev/null <<EOF
 if [ -f /usr/share/applications/$LN.desktop ] || [ -f /usr/local/share/applications/$LN.desktop ];then
     if [ -f  /usr/share/applications/$LN.desktop ];then
         sed -i 's|^Exec=$EXEC_OLD|Exec=$EXEC_NEW|g' /usr/share/applications/$LN.desktop
@@ -39,7 +39,7 @@ if [ -f /usr/share/applications/$LN.desktop ] || [ -f /usr/local/share/applicati
 fi
 EOF
     if [ -n "$BASENAME2" ]; then
-        cat <<EOF | sudo tee /usr/local/share/custom-launchers/"$BASENAME2" >/dev/null
+        sudo tee /usr/local/share/custom-launchers/"$BASENAME2" >/dev/null <<EOF
 if [ -f /usr/share/applications/$LN2.desktop ];then
     sed -i 's|^Exec=$EXEC_OLD2|Exec=$EXEC_NEW2|g' /usr/share/applications/$LN2.desktop
     sed -i 's|Icon=$ICON_OLD2|Icon=$ICON_NEW2|g' /usr/share/applications/$LN2.desktop
@@ -93,7 +93,7 @@ gei() {
 set_bashrc() {
     mkdir -p "$HOME"/.bashrc.d
     cp /etc/skel/.bashrc "$HOME"/.bashrc.d/default-bashrc.sh
-    cat <<EOF | tee "$HOME"/.bashrc >/dev/null
+    tee "$HOME"/.bashrc >/dev/null <<EOF
 if [ -d "\$HOME/.bashrc.d" ]; then
   for f in "\$HOME"/.bashrc.d/*.sh; do
     [ -r "\$f" ] && . "\$f"

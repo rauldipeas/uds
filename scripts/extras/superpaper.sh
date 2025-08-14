@@ -8,7 +8,7 @@ install_deb
 pipx install --force superpaper --system-site-packages
 mkdir -p "$HOME"/.local/share/{applications,icons}
 ln -fs "$HOME"/.local/share/pipx/venvs/superpaper/share/icons/hicolor/256x256/apps/superpaper.png "$HOME"/.local/share/icons/
-cat <<EOF | tee "$HOME"/.local/share/applications/superpaper.desktop >/dev/null
+tee "$HOME"/.local/share/applications/superpaper.desktop >/dev/null <<EOF
 [Desktop Entry]
 Type=Application
 Version=1.0

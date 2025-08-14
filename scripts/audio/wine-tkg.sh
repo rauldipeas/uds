@@ -8,7 +8,7 @@ wget -q --show-progress "$TkG"
 tar -xf wine*tkg*.tar.xz
 rm -fr wine*tkg*.tar.xz "$HOME"/.local/share/wine-tkg
 mv wine*tkg* "$HOME"/.local/share/wine-tkg
-cat <<EOF | sudo tee /etc/profile.d/wine-tkg.sh >/dev/null
+sudo tee /etc/profile.d/wine-tkg.sh >/dev/null <<EOF
 if [ -d "\$HOME"/.local/share/wine-tkg ] ; then
     	PATH="\$HOME/.local/share/wine-tkg/bin:\$PATH"
     	export WINEFSYNC=1
