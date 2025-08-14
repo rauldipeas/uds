@@ -105,6 +105,9 @@ EOF
 ## Path
 set_bashrc
 cat <<EOF | tee "$HOME"/.bashrc.d/path.sh >/dev/null
+npm config set prefix "\$HOME"/.npm-global
 export PATH="\$HOME"/.npm-global/bin:"\$PATH"
 export PATH="\$HOME"/.local/share/gem/ruby/3.2.0/bin:"\$PATH"
+export PATH="\$HOME"/.local/share/gem/bundle/bin:"\$PATH"
+export BUNDLE_PATH="\$HOME"/.local/share/gem/bundle
 EOF
