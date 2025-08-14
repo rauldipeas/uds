@@ -1,13 +1,14 @@
 #!/bin/bash
 set -e
 # shellcheck disable=SC2034
-PPA='unit193/encryption'
+#PPA='unit193/encryption'
 # shellcheck disable=SC2034
-INSTNAME='veracrypt'
+#INSTNAME='veracrypt'
 # shellcheck disable=SC1090
-source <(curl -s https://rauldipeas.com.br/uds/functions.sh)
-add_ppa
-install_deb
+#source <(curl -s https://rauldipeas.com.br/uds/functions.sh)
+#add_ppa
+#install_deb
+pacstall -IP veracrypt-deb
 mkdir -p "$HOME"/{.config/autostart,.local/bin}
 tee "$HOME"/.config/autostart/veracrypt.desktop >/dev/null <<EOF
 [Desktop Entry]

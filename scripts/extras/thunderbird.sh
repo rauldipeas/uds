@@ -5,25 +5,33 @@ BASENAME='thunderbird'
 # shellcheck disable=SC2034
 LN='thunderbird'
 # shellcheck disable=SC2034
-EXEC_OLD='thunderbird'
+EXEC_OLD='/usr/lib/thunderbird/thunderbird'
 # shellcheck disable=SC2034
 EXEC_NEW='env GDK_BACKEND=x11 thunderbird'
 # shellcheck disable=SC2034
-DEPS='systray-x-gnome thunderbird-locale-pt-br'
+ICON_OLD='/usr/lib/thunderbird/chrome/icons/default/default128.png'
 # shellcheck disable=SC2034
-PPA='mozillateam/ppa'
+ICON_NEW='thunderbird'
 # shellcheck disable=SC2034
-INSTNAME='thunderbird-gnome-support'
+DEPS="g++\
+    git\
+    libqt5x11extras5-dev\
+    make\
+    qdbus-qt5\
+    qt5-qmake\
+    qtbase5-dev\
+    zip"
 # shellcheck disable=SC1090
 source <(curl -s https://rauldipeas.com.br/uds/functions.sh)
-wget -qO- https://download.opensuse.org/repositories/home:/Ximi1970/xUbuntu_24.04/Release.key | sudo tee /etc/apt/trusted.gpg.d/Systray-x.Ximi1970.asc >/dev/null
-printf 'deb https://download.opensuse.org/repositories/home:/Ximi1970:/Mozilla:/Add-ons/xUbuntu_24.04 ./' | sudo tee /etc/apt/sources.list.d/systray-x.list >/dev/null
-sudo apt update
-add_ppa
-sudo tee /etc/apt/preferences.d/thunderbird >/dev/null <<EOF
-Package: thunderbird*
-Pin: release o=LP-PPA-mozillateam
-Pin-Priority: 1001
-EOF
 fix_launcher
 install_deb
+pacstall -IP thunderbird-bin
+cd /tmp
+rm -rf /tmp/systray-x
+git clone https://github.com/Ximi1970/systray-x
+cd /tmp/systray-x
+make clean
+make OPTIONS="DEFINES+=NO_KDE_INTEGRATION"
+mkdir -p "$HOME"/.mozilla/native-messaging-hosts
+cp -f "$PWD"/app/config/linux/SysTray_X.json "$HOME"/.mozilla/native-messaging-hosts/
+cp -f "$PWD"/systray-x@Ximi1970.xpi "$HOME"/.thunderbird/*.default-release/extensions/

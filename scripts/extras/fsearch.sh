@@ -1,12 +1,16 @@
 #!/bin/bash
 set -e
-# shellcheck disable=SC2034
-PPA='christian-boxdoerfer/fsearch-stable'
+if [ "$(grep '^ID=' /etc/os-release | cut -d '=' -f2)" == ubuntu ]; then
+    # shellcheck disable=SC2034
+    PPA='christian-boxdoerfer/fsearch-stable'
+fi
 # shellcheck disable=SC2034
 INSTNAME='fsearch'
 # shellcheck disable=SC1090
 source <(curl -s https://rauldipeas.com.br/uds/functions.sh)
-add_ppa
+if [ "$(grep '^ID=' /etc/os-release | cut -d '=' -f2)" == ubuntu ]; then
+    add_ppa
+fi
 install_deb
 if [ "$(gsettings get org.gnome.desktop.interface icon-theme)" == "'Papirus-Dark'" ]; then
     mkdir -p "$HOME"/.icons/Papirus-Dark/64x64/apps

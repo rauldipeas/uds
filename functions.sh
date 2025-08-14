@@ -52,12 +52,20 @@ EOF
 }
 
 add_ppa() {
-    sudo add-apt-repository -y ppa:"$PPA"
+    if [ "$(grep '^ID=' /etc/os-release | cut -d '=' -f2)" == ubuntu ]; then
+        sudo add-apt-repository -y ppa:"$PPA"
+    elif [ "$(grep '^ID=' /etc/os-release | cut -d '=' -f2)" == debian ]; then
+        PPA_NAME="$(printf "%s" "$PPA" | cut -d '/' -f2)"
+        PPA_ADDRESS="https://launchpad.net/~$(printf "%s" "$PPA" | cut -d '/' -f1)/+archive/ubuntu/$(printf "%s" "$PPA" | cut -d '/' -f2)"
+        PPA_KEY="$(wget -qO- "$PPA_ADDRESS" | grep fingerprint | cut -d ':' -f 22 | cut -d '"' -f2)"
+        sudo wget -qO /etc/apt/trusted.gpg.d/"$PPA_NAME".gpg "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x$PPA_KEY"
+        echo "deb http://ppa.launchpadcontent.net/$PPA/ubuntu noble main" | sudo tee /etc/apt/sources.list.d/"$PPA_NAME".list
+    fi
 }
 
 install_deb() {
     if [ -n "$DEPS" ]; then
-        sudo apt install -y --reinstall "$DEPS"
+        printf "%s" "$DEPS"|xargs sudo apt install -y --reinstall
     fi
     if [ -n "$INSTNAME" ]; then
         sudo apt install -y --reinstall "$INSTNAME"
