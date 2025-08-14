@@ -24,6 +24,7 @@ if [ "$USER" == rauldipeas ]; then
 	codium --install-extension ms-vscode.live-server --force
 	codium --install-extension pkief.material-icon-theme --force
 	codium --install-extension redhat.vscode-yaml --force
+	codium --install-extension sissel.shopify-liquid --force
 	codium --install-extension timonwong.shellcheck --force
 	codium --install-extension yzhang.markdown-all-in-one --force
 	codium --install-extension zardoy.npm-rapid-ready --force
