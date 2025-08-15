@@ -26,21 +26,29 @@ sudo apt update
 install_deb
 printf "\e[32mAutenticar agora?\e[0m\e[31m (s/N)\e[0m"
 read -r resp
+convert_icons() {
+    for file in *.svg; do
+        tmp="$(mktemp)".png
+        convert -density 1200 -background none "$file" -trim +repage "$tmp"
+        size="$(identify -format "%[fx:max(w,h)]" "$tmp")"
+        convert "$tmp" -gravity center -background none -extent "${size}"x"${size}" "${file%.svg}".png
+        rm "$tmp"
+    done
+}
+if [ "$(gsettings get org.gnome.desktop.interface icon-theme)" == "'Papirus-Dark'" ]; then
+    mkdir -p "$HOME"/.config/yd-tools/icons/{dark,light}
+    cp /usr/share/icons/Papirus/24x24/panel/yd-* "$HOME"/.config/yd-tools/icons/dark/
+    cp /usr/share/icons/Papirus-Light/24x24/panel/yd-* "$HOME"/.config/yd-tools/icons/light/
+    cd "$HOME"/.config/yd-tools/icons/dark/
+    convert_icons
+    cd "$HOME"/.config/yd-tools/icons/light/
+    convert_icons
+    cd
+    rm "$HOME"/.config/yd-tools/icons/{dark,light}/*.svg
+    sudo convert -density 1200 -background none -resize 128x128 /usr/share/icons/Papirus/128x128/apps/yd-128.svg /usr/share/yd-tools/icons/yd-128.png
+    sudo convert -density 1200 -background none -resize 128x128 /usr/share/icons/Papirus/22x22/panel/yd-ind-pause.svg /usr/share/yd-tools/icons/yd-128_g.png
+fi
 if [[ $resp =~ ^[Ss]$ ]]; then
     yandex-disk token &&
         yandex-disk start
 fi
-mkdir -p "$HOME"/.config/yd-tools/icons/dark
-cp /usr/share/icons/Papirus/24x24/panel/yd-* "$HOME"/.config/yd-tools/icons/dark/
-cd "$HOME"/.config/yd-tools/icons/dark/
-for file in *.svg; do
-    tmp=$(mktemp).png
-    convert -density 1200 -background none "$file" -trim +repage "$tmp"
-    size=$(identify -format "%[fx:max(w,h)]" "$tmp")
-    convert "$tmp" -gravity center -background none -extent "${size}x${size}" "${file%.svg}.png"
-    rm "$tmp"
-done
-cd
-rm "$HOME"/.config/yd-tools/icons/dark/*.svg
-sudo convert -density 1200 -background none -resize 128x128 /usr/share/icons/Papirus/128x128/apps/yd-128.svg /usr/share/yd-tools/icons/yd-128.png
-sudo convert -density 1200 -background none -resize 128x128 /usr/share/icons/Papirus/22x22/panel/yd-ind-pause.svg /usr/share/yd-tools/icons/yd-128_g.png
