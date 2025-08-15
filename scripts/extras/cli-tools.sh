@@ -53,6 +53,8 @@ bleopt edit_marker=
 bleopt edit_marker_error=
 # deixa o auto-complete com uma cor mais sútil
 ble-face auto_complete='fg=240,underline,italic'
+bleopt complete_auto_delay=300
+bleopt complete_requote_threshold=-1
 EOF
 
 ## Dropbear
