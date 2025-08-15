@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
+# shellcheck disable=SC2034
 TARGET="$(curl -sL https://iriun.com/|grep deb|cut -d '"' -f4)"
+# shellcheck disable=SC1090
 source <(curl -s https://rauldipeas.com.br/uds/functions.sh)
 enter_tmp
 download
