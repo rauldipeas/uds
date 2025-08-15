@@ -40,6 +40,8 @@ sudo wget -q --show-progress -O /usr/local/bin/toggle-pipewire-jack https://raul
 sudo chmod +x /usr/local/bin/toggle-pipewire-jack
 mkdir -p "$HOME"/.config/nohang
 tee "$HOME"/.config/nohang/nohang.conf >/dev/null <<EOF
-notify_every = 60       # intervalo entre notificações (em segundos)
-min_notify_mem = 200    # memória livre mínima antes de notificar (em MiB)
+notify_every = 300
+min_notify_mem = 200
+memory_limit_mb=8000
+memory_limit_percent=80
 EOF

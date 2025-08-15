@@ -7,7 +7,7 @@ source <(curl -s https://rauldipeas.com.br/uds/functions.sh)
 enter_tmp
 download
 install_deb
-mkdir -p "$HOME"/.config/{autostart,cable}
+mkdir -p "$HOME"/.config/cable
 tee "$HOME"/.config/cable/config.ini >/dev/null <<EOF
 [DEFAULT]
 tray_enabled = True
