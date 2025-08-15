@@ -243,4 +243,8 @@ sudo add-apt-repository -y ppa:papirus/papirus
 sudo apt install -y --reinstall papirus-icon-theme
 gsettings set org.gnome.desktop.interface icon-theme Papirus-Dark
 #papirus-folders -C paleorange
-papirus-folders -C yaru
+if [ "$(grep '^ID=' /etc/os-release | cut -d '=' -f2)" == ubuntu ]; then
+  papirus-folders -C yaru
+elif [ "$(grep '^ID=' /etc/os-release | cut -d '=' -f2)" == debian ]; then
+  papirus-folders -C adwaita
+fi

@@ -1,16 +1,20 @@
 #!/bin/bash
 set -e
 # shellcheck disable=SC2034
-TARGET="$(curl -sL https://iriun.com/|grep deb|cut -d '"' -f4)"
+TARGET="$(curl -sL https://iriun.com/ | grep deb | cut -d '"' -f4)"
 # shellcheck disable=SC1090
 source <(curl -s https://rauldipeas.com.br/uds/functions.sh)
 enter_tmp
 download
-if grep -E "liquorix|xanmod" <(uname -r);then
+if grep -E "liquorix|xanmod" <(uname -r); then
     cd /tmp
     rm -fr /tmp/v4l2loopback*
-    wget -q --show-progress http://archive.ubuntu.com/ubuntu/pool/universe/v/v4l2loopback/"$(curl -s http://archive.ubuntu.com/ubuntu/pool/universe/v/v4l2loopback/|grep -oP 'v4l2loopback-dkms_[^"]+?\.deb'|sort -V|tail -n1)"
-    sudo apt install -y --reinstall ./v4l2loopback*.deb
+    if [ "$(grep '^ID=' /etc/os-release | cut -d '=' -f2)" == ubuntu ]; then
+        wget -q --show-progress http://archive.ubuntu.com/ubuntu/pool/universe/v/v4l2loopback/"$(curl -s http://archive.ubuntu.com/ubuntu/pool/universe/v/v4l2loopback/ | grep -oP 'v4l2loopback-dkms_[^"]+?\.deb' | sort -V | tail -n1)"
+        sudo apt install -y --reinstall ./v4l2loopback*.deb
+    elif [ "$(grep '^ID=' /etc/os-release | cut -d '=' -f2)" == debian ]; then
+        sudo apt install v4l2loopback-dkms
+    fi
 #    git clone -q https://github.com/v4l2loopback/v4l2loopback
 #    cd "$PWD"/v4l2loopback
 #    make
@@ -20,7 +24,7 @@ if grep -E "liquorix|xanmod" <(uname -r);then
 #    sudo modprobe v4l2loopback
 fi
 install_deb
-if [ "$(gsettings get org.gnome.desktop.interface icon-theme)" == "'Papirus-Dark'" ];then
+if [ "$(gsettings get org.gnome.desktop.interface icon-theme)" == "'Papirus-Dark'" ]; then
     mkdir -p "$HOME"/.icons/Papirus-Dark/64x64/apps
     ln -fs /usr/share/icons/Papirus-Dark/64x64/apps/webcamoid.svg "$HOME"/.icons/Papirus-Dark/64x64/apps/iriunwebcam.svg
 fi

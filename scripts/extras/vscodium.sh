@@ -9,13 +9,17 @@ npm install -g pnpm
 gem install --user-install bundler jekyll
 mkdir -p "$HOME"/.config/VSCodium/User
 if [ "$USER" == rauldipeas ]; then
-	cd /tmp
-	rm -fr /tmp/yaru-vscode
-	git clone -q https://github.com/AdsonCicilioti/yaru-vscode
-	cd yaru-vscode
-	npm install
-	npx vsce package
-	codium --install-extension yaru-vscode-*.vsix --force
+	if [ "$(grep '^ID=' /etc/os-release | cut -d '=' -f2)" == ubuntu ]; then
+		cd /tmp
+		rm -fr /tmp/yaru-vscode
+		git clone -q https://github.com/AdsonCicilioti/yaru-vscode
+		cd yaru-vscode
+		npm install
+		npx vsce package
+		codium --install-extension yaru-vscode-*.vsix --force
+	elif [ "$(grep '^ID=' /etc/os-release | cut -d '=' -f2)" == debian ]; then
+		codium --install-extension piousdeer.adwaita-theme --force
+	fi
 	codium --install-extension EditorConfig.EditorConfig --force
 	codium --install-extension formulahendry.code-runner --force
 	codium --install-extension mkhl.shfmt --force
@@ -28,7 +32,8 @@ if [ "$USER" == rauldipeas ]; then
 	codium --install-extension timonwong.shellcheck --force
 	codium --install-extension yzhang.markdown-all-in-one --force
 	codium --install-extension zardoy.npm-rapid-ready --force
-	tee "$HOME"/.config/VSCodium/User/settings.json >/dev/null <<EOF
+	if [ "$(grep '^ID=' /etc/os-release | cut -d '=' -f2)" == ubuntu ]; then
+		tee "$HOME"/.config/VSCodium/User/settings.json >/dev/null <<EOF
 {
 	"editor.fontFamily": "'Ubuntu Mono', 'monospace', monospace",
 	"editor.occurrencesHighlight": "off",
@@ -50,8 +55,31 @@ if [ "$USER" == rauldipeas ]; then
 	"workbench.settings.enableNaturalLanguageSearch": false,
 }
 EOF
+	elif [ "$(grep '^ID=' /etc/os-release | cut -d '=' -f2)" == debian ]; then
+		tee "$HOME"/.config/VSCodium/User/settings.json >/dev/null <<EOF
+{
+	"editor.occurrencesHighlight": "off",
+	"editor.renderLineHighlight": "none",
+	"git.confirmSync": false,
+	"git.enableSmartCommit": true,
+    "glassit.alpha": 220,
+  	"telemetry.enableTelemetry": false,
+  	"telemetry.enableCrashReporter": false,
+  	"telemetry.feedback.enabled": false,
+  	"update.enableWindowsBackgroundUpdates": false,
+  	"update.mode": "manual",
+	"window.menuBarVisibility": "toggle",
+	"window.titleBarStyle": "native",
+	"workbench.colorTheme": "Adwaita Dark",
+  	"workbench.enableExperiments": false,
+    "workbench.iconTheme": "material-icon-theme",
+	"workbench.settings.enableNaturalLanguageSearch": false,
+}
+EOF
+	fi
 else
-	tee "$HOME"/.config/VSCodium/User/settings.json >/dev/null <<EOF
+	if [ "$(grep '^ID=' /etc/os-release | cut -d '=' -f2)" == ubuntu ]; then
+		tee "$HOME"/.config/VSCodium/User/settings.json >/dev/null <<EOF
 {
 	"editor.fontFamily": "'Ubuntu Mono', 'monospace', monospace",
   	"telemetry.enableTelemetry": false,
@@ -66,4 +94,19 @@ else
 	"workbench.settings.enableNaturalLanguageSearch": false,
 }
 EOF
+	elif [ "$(grep '^ID=' /etc/os-release | cut -d '=' -f2)" == debian ]; then
+		tee "$HOME"/.config/VSCodium/User/settings.json >/dev/null <<EOF
+{
+  	"telemetry.enableTelemetry": false,
+  	"telemetry.enableCrashReporter": false,
+  	"telemetry.feedback.enabled": false,
+  	"update.enableWindowsBackgroundUpdates": false,
+  	"update.mode": "manual",
+	"window.menuBarVisibility": "toggle",
+	"window.titleBarStyle": "native",
+  	"workbench.enableExperiments": false,
+	"workbench.settings.enableNaturalLanguageSearch": false,
+}
+EOF
+	fi
 fi

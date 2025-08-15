@@ -18,6 +18,10 @@ gsettings set org.gnome.gedit.plugins active-plugins "[\
 ]"
 gsettings set org.gnome.gedit.preferences.editor editor-font "'Ubuntu Sans Mono 11'"
 gsettings set org.gnome.gedit.preferences.editor use-default-font false
-gsettings set org.gnome.gedit.preferences.editor scheme "'Yaru-dark'"
+if [ "$(grep '^ID=' /etc/os-release | cut -d '=' -f2)" == ubuntu ]; then
+    gsettings set org.gnome.gedit.preferences.editor scheme "'Yaru-dark'"
+elif [ "$(grep '^ID=' /etc/os-release | cut -d '=' -f2)" == debian ]; then
+    gsettings set org.gnome.gedit.preferences.editor scheme "'Oblivion'"
+fi
 gsettings set org.gnome.gedit.preferences.editor wrap-mode "'none'"
 gsettings set org.gnome.gedit.preferences.ui side-panel-visible true

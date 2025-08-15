@@ -24,3 +24,8 @@ download
 add_ppa
 fix_launcher
 install_deb
+if [ "$(grep '^ID=' /etc/os-release | cut -d '=' -f2)" == ubuntu ]; then
+    COMANDO_UBUNTU
+elif [ "$(grep '^ID=' /etc/os-release | cut -d '=' -f2)" == debian ]; then
+    COMANDO_DEBIAN
+fi
