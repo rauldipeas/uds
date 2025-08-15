@@ -104,6 +104,7 @@ set_bashrc() {
     tee "$HOME"/.bashrc >/dev/null <<EOF
 if [ -d "\$HOME/.bashrc.d" ]; then
   for f in "\$HOME"/.bashrc.d/*.sh; do
+    [ "\$f" = "\$HOME"/.bashrc.d/liquidprompt.sh ] && continue
     [ -r "\$f" ] && . "\$f"
   done
 fi

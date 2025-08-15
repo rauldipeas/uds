@@ -3,6 +3,18 @@ set -e
 # shellcheck disable=SC1090
 source <(curl -s https://rauldipeas.com.br/uds/functions.sh)
 
+## Agnoster
+set_bashrc
+rm -rf "$HOME"/.bashrc.d/themes/agnoster
+git clone -q https://github.com/speedenator/agnoster-bash "$HOME"/.bashrc.d/themes/agnoster
+sed -i 's/darkblue black/darkgreen black/g' "$HOME"/.bashrc.d/themes/agnoster/agnoster.bash
+cat <<EOF |tee "$HOME"/.bashrc.d/agnoster.bash>/dev/null
+export THEME="\$HOME"/.bashrc.d/themes/agnoster/agnoster.bash
+if [[ -f \$THEME ]]; then
+    source \$THEME
+fi
+EOF
+
 ## Bat
 sudo apt install -y --reinstall bat #batcat
 
