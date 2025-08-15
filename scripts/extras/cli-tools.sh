@@ -8,7 +8,7 @@ set_bashrc
 rm -rf "$HOME"/.bashrc.d/themes/agnoster
 git clone -q https://github.com/speedenator/agnoster-bash "$HOME"/.bashrc.d/themes/agnoster
 sed -i 's/darkblue black/darkgreen black/g' "$HOME"/.bashrc.d/themes/agnoster/agnoster.bash
-cat <<EOF |tee "$HOME"/.bashrc.d/agnoster.bash>/dev/null
+tee "$HOME"/.bashrc.d/agnoster.sh >/dev/null <<EOF
 export THEME="\$HOME"/.bashrc.d/themes/agnoster/agnoster.bash
 if [[ -f \$THEME ]]; then
     source \$THEME
@@ -114,6 +114,13 @@ tee "$HOME"/.config/micro/settings.json >/dev/null <<EOF
 {
     "eofnewline": false
 }
+EOF
+
+## ntfy
+pipx install --system-site-packages ntfy
+cat <<EOF | tee "$HOME"/.bashrc.d/ntfy.sh >/dev/null
+PATH="\$PATH":"\$HOME"/.local/bin
+eval "\$(ntfy shell-integration)"
 EOF
 
 ## Path
