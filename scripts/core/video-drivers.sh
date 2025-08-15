@@ -24,5 +24,12 @@ elif printf "%s" "$gpu_info" | grep -qE "AMD|Intel" >/dev/null; then
 	sudo apt install -y --reinstall "$PWD"/amdgpu-top*.deb
 	sudo rm -f /usr/share/applications/amdgpu_top-tui.desktop
 	printf 'amdgpu'|sudo tee /etc/initramfs-tools/modules
-	sudo sed -i 's/Icon=utilities-system-monitor/Icon=amd/g' /usr/share/applications/amdgpu_top.desktop
+	if [ "$(gsettings get org.gnome.desktop.interface icon-theme)" == "'Papirus-Dark'" ];then
+		sudo sed -i 's/Icon=utilities-system-monitor/Icon=amd/g' /usr/share/applications/amdgpu_top.desktop
+	else
+		mkdir -p "$HOME"/.local/share/icons
+		wget -q --show-progress -O "$HOME"/.local/share/icons/amd.png https://logodix.com/logo/23611.png
+		sudo sed -i 's/Icon=utilities-system-monitor/Icon=amd/g' /usr/share/applications/amdgpu_top.desktop
+	fi
+
 fi
