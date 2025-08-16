@@ -11,7 +11,8 @@ cd /tmp
 rm -f /tmp/*.deb
 wget -q --show-progress "$(curl -sL https://api.github.com/repos/topgrade-rs/topgrade/releases | grep browser_download_url | grep deb | head -n1 | cut -d '"' -f4)"
 sudo apt install -y --reinstall ./topgrade*.deb
-mkdir -p "$HOME"/.local/share/applications
+mkdir -p "$HOME"/.local/share/{applications,icons}
+wget -q --show-progress -O "$HOME"/.local/share/icons/topgrade.png https://cdn-icons-png.flaticon.com/512/7686/7686946.png
 if command -v gnome-terminal >/dev/null; then
   tee "$HOME"/.local/share/applications/topgrade.desktop >/dev/null <<EOF
 [Desktop Entry]
