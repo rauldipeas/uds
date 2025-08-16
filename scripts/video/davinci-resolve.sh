@@ -5,7 +5,7 @@ amd_support() {
 	wget -q --show-progress -O- https://repo.radeon.com/rocm/rocm.gpg.key | sudo gpg --dearmor --yes -o /etc/apt/keyrings/rocm.gpg
 	printf 'deb [arch=amd64 signed-by=/etc/apt/keyrings/rocm.gpg] https://repo.radeon.com/rocm/apt/6.4.1 noble main' | sudo tee /etc/apt/sources.list.d/rocm.list >/dev/null
 	printf 'Package: *\nPin: release o=repo.radeon.com\nPin-Priority: 600' | sudo tee /etc/apt/preferences.d/rocm-pin-600 >/dev/null
-	sudo apt update
+	sudo apt update 2>/dev/null
 	sudo apt install -y --reinstall\
 		amd64-microcode\
 		plocate\

@@ -22,7 +22,7 @@ add_ppa
 fix_launcher
 printf 'deb http://repo.yandex.ru/yandex-disk/deb/ stable main' | sudo tee /etc/apt/sources.list.d/yandex-disk.list >/dev/null
 wget -qO- http://repo.yandex.ru/yandex-disk/YANDEX-DISK-KEY.GPG | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/yandex-disk.gpg
-sudo apt update
+sudo apt update 2>/dev/null
 install_deb
 printf "\e[32mAutenticar agora?\e[0m\e[31m (s/N)\e[0m"
 read -r resp

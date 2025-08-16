@@ -5,7 +5,7 @@ INSTNAME='q4wine'
 # shellcheck disable=SC1090
 source <(curl -sSL https://rauldipeas.com.br/uds/functions.sh)
 sudo dpkg --add-architecture i386
-sudo apt update
+sudo apt update 2>/dev/null
 install_deb
 if command -v q4wine >/dev/null; then
 	xdg-mime default q4wine.desktop application/x-ms-dos-executable

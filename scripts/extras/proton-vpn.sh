@@ -8,5 +8,5 @@ source <(curl -sSL https://rauldipeas.com.br/uds/functions.sh)
 enter_tmp
 download
 install_deb
-sudo apt update
+sudo apt update 2>/dev/null
 sudo apt install -y --reinstall proton-vpn-gnome-desktop

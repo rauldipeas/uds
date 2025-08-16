@@ -14,7 +14,7 @@ if printf "%s" "$gpu_info" | grep -q NVIDIA >/dev/null; then
 		sudo add-apt-repository -y ppa:graphics-drivers/ppa
 		sudo apt install -y --reinstall libvulkan1 libvulkan1:i386
 	elif [ "$(grep '^ID=' /etc/os-release | cut -d '=' -f2)" == debian ]; then
-		sudo apt update
+		sudo apt update 2>/dev/null
 		sudo apt install -y --reinstall libvulkan1 libvulkan1:i386
 	fi
 elif printf "%s" "$gpu_info" | grep -qE "AMD|Intel" >/dev/null; then
@@ -24,7 +24,7 @@ elif printf "%s" "$gpu_info" | grep -qE "AMD|Intel" >/dev/null; then
 		sudo apt upgrade -y
 		sudo apt install -y --reinstall libgl1-mesa-dri libgl1-mesa-dri:i386 mesa-vulkan-drivers mesa-vulkan-drivers:i386
 	elif [ "$(grep '^ID=' /etc/os-release | cut -d '=' -f2)" == debian ]; then
-		sudo apt update
+		sudo apt update 2>/dev/null
 		sudo apt upgrade -y
 		sudo apt install -y --reinstall libgl1-mesa-dri libgl1-mesa-dri:i386 mesa-vulkan-drivers mesa-vulkan-drivers:i386
 	fi
