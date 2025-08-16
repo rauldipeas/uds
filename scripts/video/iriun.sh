@@ -13,7 +13,7 @@ if grep -E "liquorix|xanmod" <(uname -r); then
         wget -q --show-progress http://archive.ubuntu.com/ubuntu/pool/universe/v/v4l2loopback/"$(curl -sSL http://archive.ubuntu.com/ubuntu/pool/universe/v/v4l2loopback/ | grep -oP 'v4l2loopback-dkms_[^"]+?\.deb' | sort -V | tail -n1)"
         sudo apt install -y --reinstall ./v4l2loopback*.deb
     elif [ "$(grep '^ID=' /etc/os-release | cut -d '=' -f2)" == debian ]; then
-        sudo apt install v4l2loopback-dkms
+        sudo apt install --reinstall v4l2loopback-dkms
     fi
 #    git clone -q https://github.com/v4l2loopback/v4l2loopback
 #    cd "$PWD"/v4l2loopback
