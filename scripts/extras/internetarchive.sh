@@ -1,5 +1,5 @@
 #!/bin/bash
 set -e
 pipx install internetarchive
-ia config
+ia configure
 ia ls ubuntuderivativesstudio
