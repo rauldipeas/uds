@@ -34,4 +34,6 @@ make clean
 make OPTIONS="DEFINES+=NO_KDE_INTEGRATION"
 mkdir -p "$HOME"/.mozilla/native-messaging-hosts
 cp -f "$PWD"/app/config/linux/SysTray_X.json "$HOME"/.mozilla/native-messaging-hosts/
-cp -f "$PWD"/systray-x@Ximi1970.xpi "$HOME"/.thunderbird/*.default-release/extensions/
+TB_PROFILE="$(find "$HOME"/.thunderbird/ -type d -name '*default-release')"
+mkdir -p "$TB_PROFILE"/extensions/
+cp -f "$PWD"/systray-x@Ximi1970.xpi "$TB_PROFILE"/extensions/
