@@ -2,6 +2,7 @@
 set -e
 # shellcheck disable=SC2034
 DEPS="nohang\
+	qjackctl\
 	ubuntustudio-lowlatency-settings\
 	ubuntustudio-performance-tweaks\
 	ubuntustudio-pipewire-config"
@@ -29,11 +30,7 @@ EOF
 fi
 sudo debconf-set-selections <<<'jackd2 jackd/tweak_rt_limits string true'
 install_deb
-if [ "$(grep '^ID=' /etc/os-release | cut -d '=' -f2)" == ubuntu ]; then
-	sudo apt autoremove --purge -y qmidinet qpwgraph
-elif [ "$(grep '^ID=' /etc/os-release | cut -d '=' -f2)" == debian ]; then
-	sudo apt install -y --reinstall qjackctl
-fi
+sudo apt autoremove --purge -y qmidinet qpwgraph
 sudo usermod -aG audio,pipewire "$USER"
 sudo wget -q --show-progress -O /etc/udev/rules.d/99-cpu-dma-latency.rules https://github.com/Ardour/ardour/raw/refs/heads/master/tools/udev/99-cpu-dma-latency.rules >/dev/null
 sudo udevadm control --reload-rules
