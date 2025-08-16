@@ -14,6 +14,14 @@ if [ -d "\$HOME"/.local/share/wine-tkg ] ; then
     	export WINEFSYNC=1
 fi
 EOF
+if [ "$(grep '^ID=' /etc/os-release | cut -d '=' -f2)" == debian ]; then
+	if grep contrib /etc/apt/sources.list >/dev/null; then
+		printf 'contrib ativado'
+	else
+		sudo sed -i 's/main/main contrib/g' /etc/apt/sources.list
+		sudo apt update
+	fi
+fi
 printf "%s" "ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true" | sudo debconf-set-selections
 sudo apt install -y --reinstall cabextract ttf-mscorefonts-installer winbind winetricks
 if [ -d "$HOME"/.wine ]; then
@@ -21,7 +29,7 @@ if [ -d "$HOME"/.wine ]; then
 	ln -fs "$HOME"/.wine/drive_c "$HOME"/.wine/dosdevices/c:
 	ln -fs / "$HOME"/.wine/dosdevices/z:
 fi
-winetricks -f -q dxvk 
+winetricks -f -q dxvk
 #winetricks -f -q mfc42 # (instaladores de plugins jack-sparrow)
 #winetricks dwrite=disabled # (caractéres estranhos tipo árabe)
 rm -fr "$HOME"/.config/menus/applications-merged/wine* "$HOME"/.local/share/applications/wine* "$HOME"/.local/share/desktop-directories/wine*

@@ -27,6 +27,23 @@ Package: *
 Pin: release o=Ubuntu
 Pin-Priority: 1
 EOF
+	sudo tee /etc/apt/preferences.d/savoury1-multimedia >/dev/null <<EOF
+Package: *
+Pin: release o=LP-PPA-savoury1-multimedia
+Pin-Priority: 1
+
+Package: *spa*
+Pin: release o=LP-PPA-savoury1-multimedia
+Pin-Priority: 1000
+
+Package: *pipewire*
+Pin: release o=LP-PPA-savoury1-multimedia
+Pin-Priority: 1000
+
+Package: *wireplumber*
+Pin: release o=LP-PPA-savoury1-multimedia
+Pin-Priority: 1000
+EOF
 fi
 sudo debconf-set-selections <<<'jackd2 jackd/tweak_rt_limits string true'
 install_deb
