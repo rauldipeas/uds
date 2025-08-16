@@ -55,7 +55,7 @@ add_ppa() {
     if [ "$(grep '^ID=' /etc/os-release | cut -d '=' -f2)" == ubuntu ]; then
         sudo add-apt-repository -y ppa:"$PPA"
     elif [ "$(grep '^ID=' /etc/os-release | cut -d '=' -f2)" == debian ]; then
-        PPA_NAME="$(printf "%s" "$PPA" | sed 's|/|-|g' -f2)"
+        PPA_NAME="$(printf "%s" "$PPA" | sed 's|/|-|g')"
         PPA_ADDRESS="https://launchpad.net/~$(printf "%s" "$PPA" | cut -d '/' -f1)/+archive/ubuntu/$(printf "%s" "$PPA" | cut -d '/' -f2)"
         PPA_KEY="$(wget -qO- "$PPA_ADDRESS" | grep fingerprint | head -n1 | cut -d '=' -f5 | cut -d '"' -f1)"
         sudo wget -qO /etc/apt/trusted.gpg.d/"$PPA_NAME".gpg "https://keyserver.ubuntu.com/pks/lookup?op=get&search=$PPA_KEY"
