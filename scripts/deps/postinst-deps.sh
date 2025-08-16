@@ -5,5 +5,5 @@ INSTNAME="imagemagick\
      p7zip\
      zenity"
 # shellcheck disable=SC1090
-source <(curl -sL https://rauldipeas.com.br/uds/functions.sh)
+source <(curl -sSL https://rauldipeas.com.br/uds/functions.sh)
 install_deb

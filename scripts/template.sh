@@ -18,7 +18,7 @@ EXEC_OLD2=''
 EXEC_NEW2=''
 ICON_OLD2=''
 ICON_NEW2=''
-source <(curl -sL https://rauldipeas.com.br/uds/functions.sh)
+source <(curl -sSL https://rauldipeas.com.br/uds/functions.sh)
 enter_tmp
 download
 add_ppa

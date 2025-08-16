@@ -1,16 +1,16 @@
 #!/bin/bash
 set -e
 # shellcheck disable=SC2034
-TARGET="$(curl -sLL https://iriun.com/ | grep deb | cut -d '"' -f4)"
+TARGET="$(curl -sSLL https://iriun.com/ | grep deb | cut -d '"' -f4)"
 # shellcheck disable=SC1090
-source <(curl -sL https://rauldipeas.com.br/uds/functions.sh)
+source <(curl -sSL https://rauldipeas.com.br/uds/functions.sh)
 enter_tmp
 download
 if grep -E "liquorix|xanmod" <(uname -r); then
     cd /tmp
     rm -fr /tmp/v4l2loopback*
     if [ "$(grep '^ID=' /etc/os-release | cut -d '=' -f2)" == ubuntu ]; then
-        wget -q --show-progress http://archive.ubuntu.com/ubuntu/pool/universe/v/v4l2loopback/"$(curl -sL http://archive.ubuntu.com/ubuntu/pool/universe/v/v4l2loopback/ | grep -oP 'v4l2loopback-dkms_[^"]+?\.deb' | sort -V | tail -n1)"
+        wget -q --show-progress http://archive.ubuntu.com/ubuntu/pool/universe/v/v4l2loopback/"$(curl -sSL http://archive.ubuntu.com/ubuntu/pool/universe/v/v4l2loopback/ | grep -oP 'v4l2loopback-dkms_[^"]+?\.deb' | sort -V | tail -n1)"
         sudo apt install -y --reinstall ./v4l2loopback*.deb
     elif [ "$(grep '^ID=' /etc/os-release | cut -d '=' -f2)" == debian ]; then
         sudo apt install v4l2loopback-dkms

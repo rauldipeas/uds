@@ -13,6 +13,6 @@ EXEC_NEW='env GDK_BACKEND=x11 flowblade'
 # shellcheck disable=SC2034
 INSTNAME='flowblade'
 # shellcheck disable=SC1090
-source <(curl -sL https://rauldipeas.com.br/uds/functions.sh)
+source <(curl -sSL https://rauldipeas.com.br/uds/functions.sh)
 fix_launcher
 install_deb

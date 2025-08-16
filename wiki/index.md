@@ -16,7 +16,7 @@ sudo apt install -y xterm
 
 Pra instalar o script é só rodar o comando abaixo:
 ```bash
-bash <(curl -sL https://rauldipeas.com.br/install-uds)
+bash <(curl -sSL https://rauldipeas.com.br/install-uds)
 ```
 
 Se tudo correr como esperado, vai aparecer um lançador novo nos seus aplicativos, chamado **Pós instação do Ubuntu (Estúdio)**.

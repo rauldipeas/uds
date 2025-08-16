@@ -5,7 +5,7 @@ set -e
 # shellcheck disable=SC2034
 #INSTNAME='veracrypt'
 # shellcheck disable=SC1090
-#source <(curl -sL https://rauldipeas.com.br/uds/functions.sh)
+#source <(curl -sSL https://rauldipeas.com.br/uds/functions.sh)
 #add_ppa
 #install_deb
 pacstall -IP veracrypt-deb

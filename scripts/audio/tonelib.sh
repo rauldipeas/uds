@@ -3,7 +3,7 @@ set -e
 # shellcheck disable=SC2034
 TARGET="https://github.com/PetrusNoleto/Error-in-install-cisco-packet-tracer-in-ubuntu-23.10-unmet-dependencies/releases/download/CiscoPacketTracerFixUnmetDependenciesUbuntu23.10/libgl1-mesa-glx_23.0.4-0ubuntu1.22.04.1_amd64.deb"
 # shellcheck disable=SC1090
-source <(curl -sL https://rauldipeas.com.br/uds/functions.sh)
+source <(curl -sSL https://rauldipeas.com.br/uds/functions.sh)
 enter_tmp
 download
 # Freeware

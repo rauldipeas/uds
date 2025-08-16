@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 # shellcheck disable=SC1090
-source <(curl -sL https://rauldipeas.com.br/uds/functions.sh)
+source <(curl -sSL https://rauldipeas.com.br/uds/functions.sh)
 enter_tmp
 MEGASYNCVERSION="xUbuntu_24.04"
 wget -q --show-progress https://mega.nz/linux/repo/"$MEGASYNCVERSION"/amd64/megasync-"$MEGASYNCVERSION"_amd64.deb

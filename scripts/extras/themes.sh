@@ -1,13 +1,13 @@
 #!/bin/bash
 set -e
 # shellcheck disable=SC1090
-source <(curl -sL https://rauldipeas.com.br/uds/functions.sh)
+source <(curl -sSL https://rauldipeas.com.br/uds/functions.sh)
 
 ## Bibata mouse cursor
 mkdir -p /tmp/bibata
 cd /tmp/bibata
 rm -f /tmp/bibata/*.xz
-wget -q --show-progress "$(curl -sL https://api.github.com/repos/ful1e5/Bibata_Cursor/releases | grep browser_download_url | grep download | grep Modern-Ice.tar.xz | head -n1 | cut -d '"' -f4)"
+wget -q --show-progress "$(curl -sSL https://api.github.com/repos/ful1e5/Bibata_Cursor/releases | grep browser_download_url | grep download | grep Modern-Ice.tar.xz | head -n1 | cut -d '"' -f4)"
 tar -xf Bibata*.tar.xz
 rm Bibata*.tar.xz
 sudo cp -r Bibata* /usr/share/icons/

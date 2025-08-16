@@ -17,7 +17,7 @@ DEPS='yd-tools'
 # shellcheck disable=SC2034
 INSTNAME='yandex-disk'
 # shellcheck disable=SC1090
-source <(curl -sL https://rauldipeas.com.br/uds/functions.sh)
+source <(curl -sSL https://rauldipeas.com.br/uds/functions.sh)
 add_ppa
 fix_launcher
 printf 'deb http://repo.yandex.ru/yandex-disk/deb/ stable main' | sudo tee /etc/apt/sources.list.d/yandex-disk.list >/dev/null
