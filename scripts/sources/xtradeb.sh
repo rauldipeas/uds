@@ -1,9 +1,7 @@
 #!/bin/bash
 set -e
 # shellcheck disable=SC2034
-TARGET="$(curl -sSL https://xtradeb.net/wiki/how-to-install-applications-from-this-web-site | grep Noble | grep deb | cut -d '"' -f2)"
+PPA='xtradeb/apps'
 # shellcheck disable=SC1090
 source <(curl -sSL https://rauldipeas.com.br/uds/functions.sh)
-enter_tmp
-download
-install_deb
+add_ppa
