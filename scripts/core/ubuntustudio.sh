@@ -14,7 +14,7 @@ source <(curl -sL https://rauldipeas.com.br/uds/functions.sh)
 add_ppa
 if [ "$(grep '^ID=' /etc/os-release | cut -d '=' -f2)" == debian ]; then
 	sudo apt install -y ubuntu-archive-keyring
-    sudo tee /etc/apt/sources.list.de/ubuntu.sources >/dev/null <<EOF
+    sudo tee /etc/apt/sources.list.d/ubuntu.sources >/dev/null <<EOF
 Types: deb
 URIs: http://archive.ubuntu.com/ubuntu/
 Suites: noble noble-updates noble-backports
