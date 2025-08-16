@@ -22,7 +22,7 @@ DEPS="g++\
     qtbase5-dev\
     zip"
 # shellcheck disable=SC1090
-source <(curl -s https://rauldipeas.com.br/uds/functions.sh)
+source <(curl -sL https://rauldipeas.com.br/uds/functions.sh)
 fix_launcher
 install_deb
 pacstall -IP thunderbird-bin

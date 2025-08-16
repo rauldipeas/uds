@@ -10,7 +10,7 @@ PPA='savoury1/multimedia'
 # shellcheck disable=SC2034
 INSTNAME='helvum'
 # shellcheck disable=SC1090
-source <(curl -s https://rauldipeas.com.br/uds/functions.sh)
+source <(curl -sL https://rauldipeas.com.br/uds/functions.sh)
 sudo debconf-set-selections <<<'jackd2 jackd/tweak_rt_limits string true'
 add_ppa
 install_deb
@@ -27,7 +27,7 @@ wget -q --show-progress -O "$HOME"/.config/rncbc.org/QjackCtl.conf https://rauld
 mkdir -p "$HOME"/.config/pipewire/pipewire.conf.d
 export QOPT=128
 export ROPT=44100
-curl -s https://rauldipeas.com.br/uds/settings/audio/pipewire/99-custom.conf | envsubst | tee "$HOME"/.config/pipewire/pipewire.conf.d/99-custom.conf >/dev/null
+curl -sL https://rauldipeas.com.br/uds/settings/audio/pipewire/99-custom.conf | envsubst | tee "$HOME"/.config/pipewire/pipewire.conf.d/99-custom.conf >/dev/null
 systemctl --user restart pipewire pipewire-pulse
 sudo mkdir -p /usr/local/{bin,share/applications}
 sudo wget -q --show-progress -O /usr/local/bin/pipewire-latency-switcher https://rauldipeas.com.br/uds/settings/audio/pipewire/pipewire-latency-switcher

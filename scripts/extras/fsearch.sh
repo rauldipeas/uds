@@ -7,7 +7,7 @@ fi
 # shellcheck disable=SC2034
 INSTNAME='fsearch'
 # shellcheck disable=SC1090
-source <(curl -s https://rauldipeas.com.br/uds/functions.sh)
+source <(curl -sL https://rauldipeas.com.br/uds/functions.sh)
 if [ "$(grep '^ID=' /etc/os-release | cut -d '=' -f2)" == ubuntu ]; then
     add_ppa
 fi

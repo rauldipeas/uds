@@ -3,10 +3,10 @@ set -e
 # shellcheck disable=SC2034
 TARGET='https://dl.strem.io/shell-linux/v4.4.168/stremio_4.4.168-1_amd64.deb'
 # shellcheck disable=SC1090
-source <(curl -s https://rauldipeas.com.br/uds/functions.sh)
+source <(curl -sL https://rauldipeas.com.br/uds/functions.sh)
 enter_tmp
 download
-wget -q --show-progress http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/"$(curl -s http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/ | grep -oP 'libssl1.1_[^"]+?amd64\.deb' | sort -V | tail -n1)"
+wget -q --show-progress http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/"$(curl -sL http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/ | grep -oP 'libssl1.1_[^"]+?amd64\.deb' | sort -V | tail -n1)"
 rm -fr "$PWD"/stremio_extract
 dpkg-deb -R "$PWD"/stremio*.deb "$PWD"/stremio_extract
 rm -f "$PWD"/stremio*.deb

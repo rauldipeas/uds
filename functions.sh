@@ -77,7 +77,7 @@ install_deb() {
 gei() {
     ID="$1"
     SHELL_VER="$(gnome-shell --version | awk '{print $3}')"
-    EXT_INFO="$(curl -s "https://extensions.gnome.org/extension-info/?pk=$ID&shell_version=$SHELL_VER")"
+    EXT_INFO="$(curl -sL "https://extensions.gnome.org/extension-info/?pk=$ID&shell_version=$SHELL_VER")"
     UUID="$(printf "%s" "$EXT_INFO" | jq -r .uuid)"
     DOWNLOAD_URL="$(printf "%s" "$EXT_INFO" | jq -r .download_url)"
 
