@@ -101,11 +101,19 @@ tee "$HOME"/.bashrc.d/liquidprompt.sh >/dev/null <<EOF
 printf \$- | grep -q i 2>/dev/null && . /usr/share/liquidprompt/liquidprompt
 lp_theme powerline
 EOF
-gsettings set org.gnome.desktop.interface monospace-font-name "'Ubuntu Mono 11'"
+if [ "$(grep '^ID=' /etc/os-release | cut -d '=' -f2)" == ubuntu ]; then
+  gsettings set org.gnome.desktop.interface monospace-font-name "'Ubuntu Mono 11'"
+elif [ "$(grep '^ID=' /etc/os-release | cut -d '=' -f2)" == debian ]; then
+  gsettings reset org.gnome.desktop.interface monospace-font-name
+fi
 
 ## LSD
 sudo apt install -y --reinstall lsd
-pacstall -IP nerd-fonts:ttf-ubuntu-nerd nerd-fonts:ttf-ubuntu-mono-nerd
+if [ "$(grep '^ID=' /etc/os-release | cut -d '=' -f2)" == ubuntu ]; then
+  pacstall -IP nerd-fonts:ttf-ubuntu-nerd nerd-fonts:ttf-ubuntu-mono-nerd # to-fix
+elif [ "$(grep '^ID=' /etc/os-release | cut -d '=' -f2)" == debian ]; then
+  pacstall -IP nerd-fonts:ttf-noto-nerd # to-fix
+fi
 
 ## Micro
 sudo apt install -y --reinstall micro
@@ -118,6 +126,7 @@ EOF
 
 ## ntfy
 pipx install --system-site-packages ntfy
+set_bashrc
 cat <<EOF | tee "$HOME"/.bashrc.d/ntfy.sh >/dev/null
 PATH="\$PATH":"\$HOME"/.local/bin
 eval "\$(ntfy shell-integration)"
