@@ -7,3 +7,7 @@ source <(curl -sSL https://rauldipeas.com.br/uds/functions.sh)
 enter_tmp
 download
 install_deb
+if command -v topgrade >/dev/null; then
+    mkdir -p "$HOME"/.config
+    wget -q --show-progress -O "$HOME"/.config/topgrade.toml https://github.com/rauldipeas/uds/raw/main/settings/cli/topgrade/topgrade.toml
+fi
