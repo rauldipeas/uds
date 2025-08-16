@@ -37,4 +37,7 @@ fi
 if [ "$(gsettings get org.gnome.desktop.interface icon-theme)" == "'Papirus-Dark'" ]; then
 	mkdir -p "$HOME"/.icons/Papirus-Dark/64x64/apps
 	ln -fs /usr/share/icons/Papirus-Dark/64x64/apps/airwave-manager.svg "$HOME"/.icons/Papirus-Dark/64x64/apps/blueman-plugin.svg
+elif [ "$(gsettings get org.gnome.desktop.interface icon-theme)" == "'Adwaita'" ]; then
+	mkdir -p "$HOME"/.icons/Adwaita/scalable/apps
+	ln -fs /usr/share/icons/hicolor/scalable/categories/system-component-addon.svg "$HOME"/.icons/Adwaita/scalable/apps/blueman-plugin.svg
 fi
