@@ -1,9 +1,16 @@
 #!/bin/bash
 set -e
-# shellcheck disable=SC2034
-DEPS="libcanberra-gtk-module\
-	gtk2-engines-murrine\
-	gtk2-engines-pixbuf"
+if [ "$(grep '^ID=' /etc/os-release | cut -d '=' -f2)" == ubuntu ]; then
+	# shellcheck disable=SC2034
+	DEPS="libcanberra-gtk-module\
+		gtk2-engines-murrine\
+		gtk2-engines-pixbuf"
+elif [ "$(grep '^ID=' /etc/os-release | cut -d '=' -f2)" == debian ]; then
+	# shellcheck disable=SC2034
+	DEPS="libcanberra-gtk3-module\
+		gtk2-engines-murrine\
+		gtk2-engines-pixbuf"
+fi
 # shellcheck disable=SC2034
 PPA='ubuntuhandbook1/gimp-3'
 # shellcheck disable=SC2034
