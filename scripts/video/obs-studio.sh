@@ -1,3 +1,3 @@
 #!/bin/bash
 set -e
-pacstall -IP obs-studio-deb
+printf 2|am -i --icons obs-studio
