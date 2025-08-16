@@ -58,15 +58,14 @@ add_ppa() {
         PPA_NAME="$(printf "%s" "$PPA" | sed 's|/|-|g')"
         PPA_ADDRESS="https://launchpad.net/~$(printf "%s" "$PPA" | cut -d '/' -f1)/+archive/ubuntu/$(printf "%s" "$PPA" | cut -d '/' -f2)"
         PPA_KEY="$(wget -qO- "$PPA_ADDRESS" | grep fingerprint | head -n1 | cut -d '=' -f5 | cut -d '"' -f1)"
-        #sudo wget -qO /etc/apt/trusted.gpg.d/"$PPA_NAME".gpg "https://keyserver.ubuntu.com/pks/lookup?op=get&search=$PPA_KEY"
+        sudo wget -qO /etc/apt/trusted.gpg.d/"$PPA_NAME".gpg "https://keyserver.ubuntu.com/pks/lookup?op=get&search=$PPA_KEY"
         #echo "deb http://ppa.launchpadcontent.net/$PPA/ubuntu noble main" | sudo tee /etc/apt/sources.list.d/"$PPA_NAME".list
-        PPA_GPG="$(wget -qO- "https://keyserver.ubuntu.com/pks/lookup?op=get&search=$PPA_KEY"|gpg --dearmor)"
         sudo tee /etc/apt/sources.list.d/"$PPA_NAME".sources >/dev/null <<EOF
 Types: deb
 URIs: https://ppa.launchpadcontent.net/$PPA/ubuntu/
 Suites: noble
 Components: main
-$PPA_GPG
+Signed-By: /etc/apt/trusted.gpg.d/$PPA_NAME.gpg
 EOF
         sudo apt update
     fi
