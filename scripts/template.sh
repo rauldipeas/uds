@@ -29,3 +29,7 @@ if [ "$(grep '^ID=' /etc/os-release | cut -d '=' -f2)" == ubuntu ]; then
 elif [ "$(grep '^ID=' /etc/os-release | cut -d '=' -f2)" == debian ]; then
     COMANDO_DEBIAN
 fi
+if [ "$(gsettings get org.gnome.desktop.interface icon-theme)" == "'Papirus-Dark'" ]; then
+    mkdir -p "$HOME"/.icons/Papirus-Dark/64x64/apps
+    ln -fs /usr/share/icons/Papirus-Dark/64x64/apps/"$ICON_ORIG".svg "$HOME"/.icons/Papirus-Dark/64x64/apps/"$ICON_REPL".svg
+fi
