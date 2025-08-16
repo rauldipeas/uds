@@ -5,7 +5,7 @@ wget -q --show-progress -O- https://liquorix.net/install-liquorix.sh | sudo bash
 
 # auto-cpufreq
 cd /tmp
-rm -fr /tmp auto-cpufreq
+rm -fr /tmp/auto-cpufreq
 git clone https://github.com/AdnanHodzic/auto-cpufreq
 cd auto-cpufreq
 sudo ./auto-cpufreq-installer
