@@ -11,8 +11,24 @@ PPA='savoury1/multimedia'
 INSTNAME='helvum'
 # shellcheck disable=SC1090
 source <(curl -sL https://rauldipeas.com.br/uds/functions.sh)
-sudo debconf-set-selections <<<'jackd2 jackd/tweak_rt_limits string true'
 add_ppa
+if [ "$(grep '^ID=' /etc/os-release | cut -d '=' -f2)" == debian ]; then
+	sudo apt install -y ubuntu-archive-keyring
+    sudo tee /etc/apt/sources.list.de/ubuntu.sources >/dev/null <<EOF
+Types: deb
+URIs: http://archive.ubuntu.com/ubuntu/
+Suites: noble noble-updates noble-backports
+Components: main restricted universe multiverse
+Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+
+Types: deb
+URIs: http://security.ubuntu.com/ubuntu/
+Suites: noble-security
+Components: main restricted universe multiverse
+Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+EOF
+fi
+sudo debconf-set-selections <<<'jackd2 jackd/tweak_rt_limits string true'
 install_deb
 sudo apt autoremove --purge -y qmidinet qpwgraph
 sudo usermod -aG audio,pipewire "$USER"
