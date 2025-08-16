@@ -17,15 +17,14 @@ if [ "$(grep '^ID=' /etc/os-release | cut -d '=' -f2)" == debian ]; then
     sudo tee /etc/apt/sources.list.d/ubuntu.sources >/dev/null <<EOF
 Types: deb
 URIs: http://archive.ubuntu.com/ubuntu/
-Suites: noble noble-updates noble-backports
-Components: main restricted universe multiverse
+Suites: noble-updates
+Components: universe
 Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
-
-Types: deb
-URIs: http://security.ubuntu.com/ubuntu/
-Suites: noble-security
-Components: main restricted universe multiverse
-Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+EOF
+	sudo tee /etc/apt/preferences.d/ubuntu >/dev/null <<EOF
+Package: *
+Pin: release o=Ubuntu
+Pin-Priority: 1
 EOF
 fi
 sudo debconf-set-selections <<<'jackd2 jackd/tweak_rt_limits string true'
