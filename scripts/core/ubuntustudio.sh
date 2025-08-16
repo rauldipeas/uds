@@ -13,7 +13,7 @@ INSTNAME='helvum'
 source <(curl -sL https://rauldipeas.com.br/uds/functions.sh)
 add_ppa
 if [ "$(grep '^ID=' /etc/os-release | cut -d '=' -f2)" == debian ]; then
-	sudo apt install -y ubuntu-archive-keyring
+	sudo apt install -y --reinstall ubuntu-archive-keyring
     sudo tee /etc/apt/sources.list.d/ubuntu.sources >/dev/null <<EOF
 Types: deb
 URIs: http://archive.ubuntu.com/ubuntu/
@@ -29,7 +29,11 @@ EOF
 fi
 sudo debconf-set-selections <<<'jackd2 jackd/tweak_rt_limits string true'
 install_deb
-sudo apt autoremove --purge -y qmidinet qpwgraph
+if [ "$(grep '^ID=' /etc/os-release | cut -d '=' -f2)" == ubuntu ]; then
+	sudo apt autoremove --purge -y qmidinet qpwgraph
+elif [ "$(grep '^ID=' /etc/os-release | cut -d '=' -f2)" == debian ]; then
+	sudo apt install -y --reinstall qjackctl
+fi
 sudo usermod -aG audio,pipewire "$USER"
 sudo wget -q --show-progress -O /etc/udev/rules.d/99-cpu-dma-latency.rules https://github.com/Ardour/ardour/raw/refs/heads/master/tools/udev/99-cpu-dma-latency.rules >/dev/null
 sudo udevadm control --reload-rules
